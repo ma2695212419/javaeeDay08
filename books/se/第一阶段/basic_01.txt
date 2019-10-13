@@ -1,0 +1,49 @@
+﻿1.java应用平台
+	java是1995年由sun公司所推出的一门高级编程语言，2009年被Oracle公司收购。
+2.核心概念：
+	JVM：(Java Virtual Machine)Java虚拟机，我们在进行java开发的时候，首先需要编写java源
+	文件，经过编译器进行编译，编译成二进制文件（字节码文件.class文件），在经过解释器对字节码文件进行
+	解释翻译，才能够去执行。而JVM中包含了解释器（不同操作系统解释器不一样），所以java跨平台就是
+	通过JVM来实现的。（确切的来说，java跨平台是因为JVM中的解释器跨平台）
+	例如：
+	源文件（市场中买回来的鱼）--编译器（处理鱼所用的菜刀）--字节码文件（经过处理的鱼）
+	--解释器（烹饪鱼用到的灶具）	
+	JDK：(Java Development Kit)Java开发工具包，java开发必备
+	JRE：(Java Runtime Environment)Java运行环境，运行java程序必备
+三者之间的关系：
+	JDK包含JRE，JRE包含JVM
+3.搭建java开发环境
+	Step1,安装JDK
+		注：根据系统的不同，安装不同版本的JDK
+		JDK下载网站：http://www.oracle.com/technetwork/java/javase/downloads/index.html
+		JDK默认安装路径：C:\Program Files\Java\jdk1.8.0_121
+			其中bin目录下有两个可执行文件（java.exe和javac.exe）
+			lib目录是开发中用到的一些jar文件
+	Step2,配置环境变量
+		JAVA_HOME:配置JDK安装路径
+		PATH:配置JDK命令文件的位置（bin目录的位置）
+		CLASSPATH:配置类库文件的位置（lib目录的位置）
+4.使用记事本开发java程序
+	Step1,创建一个以.java为结尾的文件
+	Step2,使用javac命令进行编译
+5.使用Eclipse开发java程序
+	集成开发环境（IDE）是一类软件
+	将程序开发环境和程序调试环境集合在一起，提高开发效率
+	Eclipse下载地址：http://www.eclipse.org/downloads
+	使用Eclipse开发项目步骤：
+		Step1,创建java项目
+		Step2,创建程序包（域名倒置）
+		Step3,编写源代码文件
+		Step4,运行文件
+6.MyEclipse的使用简介
+	MyEclipse是Eclipse的扩展，是一个十分优秀的用于开发java，javaEE的Eclipse插件集合
+	下载地址：http://www.my-eclipse.cn/
+7.程序的移植
+	需要将当前项目拷贝出来（如何查看该项目的路径，在项目上右键，最后一项，可以查看位置	）
+	导入当前项目
+8.经验技巧分享（学虽容易，学好不易，且学且珍惜）
+	1)多练
+	2)多问
+	3)自己动手，调试错误
+	4)复习和总结
+	

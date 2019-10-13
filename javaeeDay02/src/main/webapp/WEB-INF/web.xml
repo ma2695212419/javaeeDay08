@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <display-name>javaeeDay02</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <context-param>
+  	<param-name>url</param-name>
+  	<param-value>jdbc:mysql://192.168.43.66:3306/mysqlday03?useUnicode=true&amp;characterEncoding=UTF8&amp;useSSL=false&amp;serverTimeZone=GMT</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>user</param-name>
+  	<param-value>root</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>password</param-name>
+  	<param-value>123456</param-value>
+  </context-param>
+  <servlet>
+  	<servlet-name>ServletLifeCycle</servlet-name>
+  	<servlet-class>cn.kgc.tangcco.tcbd1016.lihaozhe.lifecycle.ServletLifeCycle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ServletLifeCycle</servlet-name>
+  	<url-pattern>/servletLifeCycle.action</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>Startup01</servlet-name>
+  	<servlet-class>cn.kgc.tangcco.tcbd1016.lihaozhe.startup.Startup01</servlet-class>
+  	<!-- 只能写在最后一行 -->
+	<load-on-startup>10</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Startup01</servlet-name>
+  	<url-pattern>/startup01.action</url-pattern>
+  </servlet-mapping>
+ 
+  <servlet>
+  	<servlet-name>Startup02</servlet-name>
+  	<servlet-class>cn.kgc.tangcco.tcbd1016.lihaozhe.startup.Startup02</servlet-class>
+  	<!-- 只能写在最后一行 -->
+	<load-on-startup>10</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Startup02</servlet-name>
+  	<url-pattern>/startup02.action</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>Startup03</servlet-name>
+  	<servlet-class>cn.kgc.tangcco.tcbd1016.lihaozhe.startup.Startup03</servlet-class>
+  	<!-- 只能写在最后一行 -->
+	<load-on-startup>9</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Startup03</servlet-name>
+  	<url-pattern>/startup03.action</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>ConfigInfo</servlet-name>
+  	<servlet-class>cn.kgc.tangcco.tcbd1016.lihaozhe.config.ConfigInfo</servlet-class>
+  	<init-param>
+  		<param-name>slogan</param-name>
+  		<param-value>love and peace</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ConfigInfo</servlet-name>
+  	<url-pattern>/configInfo.action</url-pattern>
+  </servlet-mapping>
+</web-app>

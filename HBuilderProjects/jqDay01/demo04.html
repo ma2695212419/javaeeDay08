@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 从临时存储中读取ker为person的值
+		let json = sessionStorage.getItem("person")
+		if (json != null) {
+			// 如果json不为null则将读取到的字符串转为javascript对象
+			let person = JSON.parse(json)
+			window.console.log(person)
+		} else{
+			// 如果json=为null则未读取到值
+			window.console.log("为获取到值")
+		}
+	</script>
+</body>
+</html>

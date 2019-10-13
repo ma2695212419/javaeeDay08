@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>ECharts</title>
+		<!-- 引入 jquery -->
+		<script src="res/jquery-3.4.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 引入 echarts.js -->
+		<script src="res/dist/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+		<div id="main" style="width: 600px;height:400px;"></div>
+		<script type="text/javascript">
+			$(() => {
+				// 基于准备好的dom，初始化echarts实例
+				let myChart = echarts.init(document.getElementById('main'));
+
+				/* 
+				    如果数据加载时间较长，一个空的坐标轴放在画布上也会让用户觉得是不是产生 bug 了，
+				    因此需要一个 loading 的动画来提示用户数据正在加载。
+				    ECharts 默认有提供了一个简单的加载动画。
+				    只需要调用 showLoading 方法显示。数据加载完成后再调用 hideLoading 方法隐藏加载动画。 
+				 */
+				myChart.showLoading()
+				myChart.setOption({
+					title: {
+						text: '异步数据加载示例'
+					},
+					tooltip: {},
+					legend: {
+						data: ['销量']
+					},
+					xAxis: {
+						data: []
+					},
+					yAxis: {},
+					series: [{
+						name: '销量',
+						type: 'bar',
+						data: []
+					}]
+				});
+				// 异步加载数据
+				$.getJSON('/columnar', (responseText, statusText, xhr) => {
+					console.log(statusText)
+					console.log(xhr)
+					myChart.hideLoading();
+					// 填入数据
+					myChart.setOption({
+						xAxis: {
+							data: responseText.categories
+						},
+						yAxis: {},
+						series: [{
+							// 根据名字对应到相应的系列
+							name: '销量',
+							type: 'bar',
+							data: responseText.data
+						}]
+					});
+				});
+				/* 
+					ECharts 中在更新数据的时候需要通过name属性对应到相应的系列，
+					上面示例中如果name不存在也可以根据系列的顺序正常更新，
+					但是更多时候推荐更新数据的时候加上系列的name数据。 
+				*/
+			})
+		</script>
+	</body>
+
+</html>

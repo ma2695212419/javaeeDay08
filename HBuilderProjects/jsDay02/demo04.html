@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<p id="p1">
+		我是一段文字
+	</p>
+	<p id="p2">
+		我是一段文字
+	</p>
+</body>
+<script type="text/javascript">
+	// 获取id为p1的dom元素
+	let p1 = window.document.getElementById("p1")
+	// 获取id为p1的dom元素的字符串内容
+	let p1text = p1.innerText
+	window.console.log(p1)
+	window.console.log(p1text)
+	// 标签当作村文本不会被浏览器解析而是之间当作村文版直接显示
+	p1.innerText='<img src="img/htmltree.gif" >'
+	let p2 = window.document.getElementById("p2")
+	// 浏览器会解析文根本中的html标签
+	p2.innerHTML='<img src="img/domfun.png" >'
+</script>
+</html>

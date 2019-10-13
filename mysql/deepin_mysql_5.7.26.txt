@@ -1,0 +1,21 @@
+sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+sudo apt-get -y update
+sudo dpkg-reconfigure mysql-apt-config
+sudo apt-get -y update
+sudo apt-get -y install mysql-server
+# sudo apt-get -y install libmecab2 mysql-client mysql-server mysql-common mysql-community-client mysql-community-server
+# sudo apt-get -y install mysql-workbench-community
+# sudo apt-get -y install libmysqlclient18
+
+mysql -uroot -p
+输入密码进入mysql后输入
+update mysql.user set host = '%' where user='root';
+flush privileges;
+quit;
+
+vim /etc/mysql/mysql.conf.d/mysqld.cnf
+bind-address	= 127.0.0.1
+修改为
+bind-address	= 0.0.0.0
+保存后重启数据库
+sudo systemctl restart mysql

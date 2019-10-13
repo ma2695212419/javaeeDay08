@@ -1,0 +1,8 @@
+@import url(style.css);
+.main{
+	width: 600px;
+	height: 600px;
+	margin: 0px auto;
+	border: 1px solid red;
+	text-align: center;
+}

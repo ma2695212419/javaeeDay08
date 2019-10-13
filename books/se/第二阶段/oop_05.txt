@@ -1,0 +1,105 @@
+﻿1.抽象方法和抽象类
+	1.1 抽象方法和抽象类
+		a)由abstract修饰的方法称之为抽象方法，抽象方法只有方法的定义，没有方法的实现，用一个分号
+		结尾
+		b)一个类中如果包含抽象方法，那么这个类就必须是抽象类，抽象类也由abstract修饰
+		c)如果一个类继承了一个抽象类，那么该类就必须重写抽象类中的抽象方法或者该类也被声明为抽象类
+	1.2 抽象类不能被实例化
+		a)即使一个类中没有抽象方法，那么该类也可以被声明为一个抽象类，同样，该类不能被实例化
+		b)abstract和final不能同时修饰一个类
+	1.3 抽象类的意义
+		a)为子类提供一个公共的类型
+		b)封装子类中重复的内容(成员变量和方法)
+		c)定义有抽象方法，子类虽然有不同的实现，但该方法的定义是一致的
+2.接口
+	2.1 接口的定义
+		a)接口可以看成是一个特殊的抽象类，即只包含抽象方法的抽象类
+		b)接口使用interface关键字定义
+		c)接口中所有的方法都是public abstract的(在jdk1.8之前)
+		d)接口中所有的成员变量都是public static final的
+		e)接口中不能写构造器
+	2.2 实现接口
+		a)一个类可以实现多个接口，实现的接口直接用都号分隔，该类需要实现这个接口中所有的抽象方法
+		b)实现的关键字"implements"
+		c)接口可以做为一种类型声明变量，引用一个实现了该接口的类的对象，通过该引用可以调用该接口中定义
+		的方法
+	2.3 接口之间的继承
+		a)接口之间可以相互继承，使用extends关键字实现继承，并且一个接口可以继承自"多个接口"
+	***2.4 抽象类和接口的区别
+		a)抽象类由关键字abstract修饰，而接口用interface修饰
+		b)抽象类只能单继承(extends)，而接口可以多实现(implements)
+		c)抽象类中可以有抽象方法，也可以有非抽象方法，接口中都是公开的抽象方法
+		d)抽象类中成员变量既可以是常量，也可以是变量，接口只能是公开的常量
+		e)抽象类中可以写构造器，接口中不能写构造器
+3.多态
+	3.1 多态的意义
+		a)一个类型的引用在指定不同对象时会有不同的实现(向下造型)
+		b)同一个对象，造型成不同的类型时，会有不同的功能(向上造型)
+	3.2 向上造型
+		a)一个类的对象可以向上造型的类型有：
+			--父类的类型
+			--实现的接口的类型
+		b)java编译器根据类型检查调用方法是否匹配
+	3.3 强制转型
+		a)可以通过强制转型将父类型变量转换为子类型变量，前提是该变量指向的对象确实是子类型的
+		b)也可以转换为某种接口类型，前提是该变量的对象确实实现了该接口
+		c)如果在强转的过程中，违背了上述两个前提，将会抛出ClassCastException	
+	3.4 instanceof关键字
+		a)在强制类型转换过程中，为了避免出现ClassCastException，可以通过instanceof关键字
+		判断某个引用指向的对象是否为指定类型
+4.内部类
+	4.1 定义成员内部类
+		a)一个类可以定义在一个类的外部，定义在类的内部的类称之为Inner，定义在外部的类称为Outer
+		b)Inner定义在Outer的内部，只服务于Outer，对于外部不可见，Inner可以直接调用Outer的
+		成员及方法(包括私有)
+			eg：
+				class Outer{
+					private int time;
+					class Inner{
+						public void timeInc(){
+							time++;
+						}
+					}
+				}
+	4.2 创建内部类对象
+		a)一般情况下，Inner对象会在Outer对象中创建(构造方法或其他方法)，Inner对象中有一个隐式
+		引用指向创建他的Outer对象
+			eg：
+				class Outer{
+					private int time;
+					private Inner inner;
+					public Outer(int time){
+						this.time = time;
+						inner = new Inner();//创建内部类对象
+						inner.timeInc();//调用Inner类的方法
+					}
+					public void printTime(){
+						System.out.println(time);
+					}
+					class Inner{
+						public void timeInc(){
+							time++;
+						}
+					}
+				}
+				main(){
+					Outer outer = new Outer(100);
+					outer.printTime();//101
+				}
+	4.3 定义匿名内部类
+		a)如果在一段程序中需要创建一个类的对象(通常这个类实现某个接口或继承某个类)，而且创建对象后，
+		这个类的价值就不存在了，这个类可以不必命名，称之为匿名内部类
+			eg：
+				public interface Action(){
+					public void execute();
+				}
+				public class Test{
+					public static void main(String[] args){
+						Action action = new Action(){//创建内部类对象并重写方法
+							public void execute(){
+								System.out.println("....");
+							}
+						};
+						action.execute();//调用方法
+					}
+				}

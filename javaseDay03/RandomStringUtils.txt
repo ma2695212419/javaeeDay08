@@ -1,0 +1,71 @@
+RandomStringUtils.random(int count) => 产生6位长度的随机字符串，中文环境下是乱码
+
+System.out.println(RandomStringUtils.random(6));
+
+RandomStringUtils.random(int count, String chars) => 产生6位长度的随机字符串，字符将从字符串指定的字符集中选择，不能为空。如果NULL，则使用所有字符集。
+
+System.out.println(RandomStringUtils.random(6, "abcdefgABCDEFG123456789"));
+
+RandomStringUtils.random(int count, int start,int end,boolean letters, boolean numbers) => [指定长度的随机字符串] [是否包含字母] [是否包含数字]
+
+System.out.println(RandomStringUtils.random(6, true, false));
+
+RandomStringUtils.random(int count, char... chars) => 使用指定的字符生成6位长度的随机字符串 [指定长度的随机字符串] [指定字符集]
+
+System.out.println(RandomStringUtils.random(6, new char[]{'a', 'b', 'c', 'd', 'e', 'f', '1', '2', '3'}));
+
+RandomStringUtils.random(final int count, final int start, final int end, final boolean letters, final boolean numbers, final char... chars)
+
+// [指定长度的随机字符串] [字符集在开始时的位置] [字符集在结束前的位置，必须大于65] [生成的字符串可以包括字母字符] [生成的字符串可以包含数字字符] [指定字符集]
+System.out.println(RandomStringUtils.random(6, 1, 66, true, false, null));
+
+RandomStringUtils.random(final int count, final int start, final int end, final boolean letters, final boolean numbers, final char... chars, Random random)
+
+// [指定长度的随机字符串] [字符集在开始时的位置] [字符集在结束前的位置，必须大于65] [生成的字符串可以包括字母字符] [生成的字符串可以包含数字字符] [指定字符集] [Random对象]
+System.out.println(RandomStringUtils.random(6, 'a', 'f', true, true, null, new Random()));
+ 
+
+RandomStringUtils.randomAlphanumeric => 生成指定长度的字母和数字的随机组合字符串
+
+System.out.println(RandomStringUtils.randomAlphanumeric(5));
+
+RandomStringUtils.randomAlphanumeric => 生成指定范围的字母和数字的随机组合字符串
+
+System.out.println(RandomStringUtils.randomAlphanumeric(1, 5));
+ 
+
+RandomStringUtils.randomAlphabetic => 生成指定长度随机[a-z]字符串，包含大小写
+
+System.out.println(RandomStringUtils.randomAlphabetic(5));
+
+RandomStringUtils.randomAlphabetic => 生成指定范围长度随机[a-z]字符串，包含大小写
+
+System.out.println(RandomStringUtils.randomAlphabetic(1, 5));
+ 
+
+RandomStringUtils.randomNumeric => 生成指定长度的随机数字字符串
+
+System.out.println(RandomStringUtils.randomNumeric(5));
+
+RandomStringUtils.randomNumeric => 生成指定范围长度的随机数字字符串
+
+System.out.println(RandomStringUtils.randomNumeric(1, 5));
+ 
+
+RandomStringUtils.randomAscii => 生成指定长度ASCII字符串（32到126组成的随机字符串）
+
+System.out.println(RandomStringUtils.randomAscii(5));
+
+RandomStringUtils.randomAscii => 生成指定范围长度ASCII字符串（32到126组成的随机字符串）
+
+System.out.println(RandomStringUtils.randomAscii(1, 5));
+
+RandomStringUtils.randomGraph => 生成指定长度的随机字符串。
+
+// 内部调用random(count, 33, 126, false, false);
+System.out.println(RandomStringUtils.randomGraph(5));
+
+RandomStringUtils.randomGraph => 创建一个长度介于包含的最小值和排除的最大值之间的随机字符串。
+
+// 内部调用random(count, 33, 126, false, false);
+System.out.println(RandomStringUtils.randomGraph(1, 5));

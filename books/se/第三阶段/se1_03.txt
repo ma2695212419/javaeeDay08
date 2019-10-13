@@ -1,0 +1,100 @@
+﻿1.日期操作
+	1.1 java中的时间使用标准类库中的Date类表示，是用距离一个固定时间点的毫秒数(可正可负，long
+	类型)表达一个特定的时间点，固定的时间点叫纪元，是UTC(世界调整时间)时间1970年1月1日
+	00:00:00
+	1.2 Date用于封装日期及其时间信息  java.util.Date
+	1.3 当前系统时间  Date Date = new Date();
+	1.4 Date类重写了toString()方法，Fri Sep 09 13:53:26 CST 2016
+	1.5 getTime();获得毫秒数
+	  	setTime():设置时间点，从1970年
+	  	eg：求出明天这个时间点的毫秒值
+2.SimpleDateFormat
+	2.1 java.text.SimpleDateFormat是一个以与语言环境有关的方式来格式化和解析日期的具体类，
+	它允许进行格式化(日期->文本)，解析(文本->日期)和规范化
+	2.2 操作方法
+		a)final String format(Date date)：Date --> String
+		b)Date parse(String dateStr) throws ParseException：String --> Date
+	2.3 日期格式匹配字符
+		字符                                含义                                                 示例
+	     y              年                           yyyy年--2017年; yy--17年
+	     M              月                                   MM月--01月;M月--1月
+		 d              日  			   dd日--06日;d日--6日
+		 E             星期                                 	    E--星期四
+		 a            AM或PM                 a--下午
+		 H           时(24小时制)        		HH--14时   
+		 h           时(12小时制)		   		hh--2时			
+		 m              分                                  		mm--24分
+		 s              秒                                  		ss--34秒
+3.Calendar
+	3.1 java.util.Calendar类用于封装日历信息，其主要作用在于其方法可以对时间分量进行运算
+	3.2 Calendar是抽象类，不能直接创建对象，我们通常使用它的子类GregorianCalendar或使用其静态
+	方法getInstance()方法来获取对象
+	eg：
+		Calendar c1 = new GregorianCalendar();
+		Calendar c2 = Calendar.getInstance();
+	3.3 常用方法
+		a)getTime();--Calendar转换为Date
+		b)setTime(Date d);--Date转换为Calendar
+		c)set(日期分量);--为某一日期分量设置值
+		d)get(日期分量);--获取某一日期分量的值
+		e)add(日期分量，值);--为某一日期分量做加减操作
+		f)getActualMaximum(日期分量);--获取该日期分量可能拥有的最大值
+		eg：输出2017年每月最多有多少天?
+			Calendar c = Calendar.getInstance();
+			c.set(Calendar.YEAR, 2014);
+			for (int month = Calendar.JANUARY;month <= Calendar.DECEMBER;month++){
+				c.set(Calendar.MONTH, month);
+				System.out.println(c.getActualMaximum(Calendar.DATE));
+			}
+	3.4 日期分量
+		Calendar.YEAR
+	 	Calendar.MONTH
+	 	Calendar.DATE：几号
+	 	Calendar.HOUR
+	 	Calendar.FRIDAY
+	 	Calendar.MINUTE
+	 	DAY_OF_MONTH：月的第几天
+	 	DAY_OF_WEEK：周的第几天------从周日算第一天，
+	 	DAY_OF_YEAR
+	 	WEEK_OF_MONTH
+	 	WEEK_OF_YEAR
+	 	MONTH_OF_YEAR
+	3.5 输入某产品的生产日期，保质期，算出这款产品的促销日期（促销日期为过期日的前14天所在的周日）
+	       	生产日期：2016-3-26日
+        	保质期：6个月
+         	2016-9-11日为促销日
+		        Calendar c = Calendar.getInstance();
+				c.set(Calendar.YEAR, 2016);
+				c.set(Calendar.MONTH, 2);
+				c.set(Calendar.DATE, 26);
+				int bzq = 6;
+				c.add(Calendar.MONTH, bzq);//过期日
+				c.add(Calendar.DAY_OF_MONTH, -14);//过期日的前14天
+				c.set(Calendar.DAY_OF_WEEK, 1);//周日
+				System.out.println(new SimpleDateFormat("yyyy年MM月dd日")
+							.format(c.getTime()));
+4.集合
+	4.1 在实际开发中，需要将使用的对象存储于特定的数组结构的容器中，JDK提供了这样的容器--集合
+	4.2 Collection是一个接口，定义了集合相关的操作方法，有两个子接口List和Set
+	    List：有序可重复集(有序指的是元素添加的顺序与输出顺序一致，元素是否重复，取决于元素的
+	    			equals()比较的结果)
+	    Set：无序不可重复集
+	4.3 常用方法
+		a)boolean add(E e)：将指定元素e添加到集合中，添加成功返回true
+		b)boolean contains(Object o)：判定o是否被包含在集合中，包含返回true
+			注：此处的包含是equals比较的结果，equals比较相同，则包含
+		c)int size()：获取集合中元素的个数
+		d)void clear()：清空集合
+		e)boolean isEmpty()：判断集合中是否不包含任何元素
+		f)boolean addAll(Collection c)：用于将c集合中的所有元素全部添加到当前集合中，如果当前
+		集合因为添加而发生元素的变化返回true，没变化返回false
+		g)boolean containsAll(Collection c)：用于判断当前集合是否包含指定集合中的所有元素，
+		如果包含则返回true，否则false
+		h)E get(int index)：通过下坐标访问对应的元素
+		i)E remove(int index)：移除下坐标所对应的元素，返回值类型是泛型规定的类型，值是移除的
+		那个元素
+   	 	j)boolean remove(Object o)：移除o  返回true/false
+   	 	k)removeAll(Collection c)：移除和c集合中的共同的元素
+
+		
+			

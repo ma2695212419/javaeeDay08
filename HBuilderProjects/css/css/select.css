@@ -1,0 +1,120 @@
+/*
+选择器： 选择器的作用就是找到对应的数据进行样式化。
+
+	1.标签选择器： 就是找到所有指定的标签进行样式化。
+	
+		格式：	
+			标签名{
+				样式1；样式2....	
+			}
+			
+		例子：
+			div{
+				color:#F00;
+				font-size:24px;
+			}
+	2. 类选择器: 使用类选择器首先要给html标签指定对应的class属性值。
+		
+		格式：
+			.class的属性值{
+				样式1；样式2...	
+			}	
+			
+		例子：
+			.two{
+				background-color:#0F0;
+				color:#F00;
+				font-size:24px;
+			}
+	
+
+			
+	类选择器要注意的事项：
+		1. html元素的class属性值一定不能以数字开头.
+		2. 类选择器的样式是要优先于标签选择器的样式。
+		
+	3. ID选择器： 使用ID选择器首先要给html元素添加一个id的属性值。
+			
+			ID选择器的格式：
+				
+				#id属性值{
+					样式1；样式2...	
+				}
+		id选择器要注意的事项：
+			1. ID选择器的样式优先级是最高的，优先于类选择器与标签选择器。
+			2. ID的属性值也是不能以数字开头的。
+			3. ID的属性值在一个html页面中只能出现一次。
+	5. 并集选择器： 对指定的选择器进行统一的样式化。
+		
+		格式：	
+			选择器1,选择器2..{
+				样式1；样式2...
+			}
+			
+		span,a{
+			border-style:solid;
+			border-color:#F00;
+		}
+	6. 通过选择器:
+		
+			*{
+				样式1；样式2...
+			}	
+			*{
+				text-decoration:line-through;
+				background-color: darkorange;
+			}
+
+
+关系选择器
+	包含选择符 ： 就是对选择器1中的选择器2里面的数据进行样式化。
+		
+	
+		选择器1 选择器2{
+			样式1，样式2....	
+		}
+		
+		例子：
+			.two span{
+				background-color:#999;
+				font-size:24px;
+			}
+	1.子选择符(E > F)隔辈儿亲
+		选择所有作为E 元素的直接子元素F，对更深一层的元素不起作用，用大于号表示。
+		.four > span {
+			background-color: #0000FF;
+			font-size: 16px;
+		}
+	2.相邻选择符(E+F) 隔离老王是邻居 隔壁的隔壁虽是邻居但不相邻
+		选择紧贴在E 元素之后F 元素，用加号表示，选择相邻的第一个兄弟元素。
+	3.兄弟选择符(E~F)
+		选择E 元素之后的所有兄弟元素F，作用于多个元素，用~号隔开。
+*/
+
+#one {
+	background-color: #0F0;
+	color: #F00;
+	font-size: 24px;
+}
+
+.two {
+	background-color: #F0F;
+	color: #00F;
+	font-size: 36px;
+}
+
+.two span {
+	background-color: #999;
+	font-size: 12px;
+}
+
+
+
+.four > span {
+	background-color: #0000FF;
+	font-size: 16px;
+}
+.five ~ div {
+	background-color: #0000FF;
+	font-size: 16px;
+}

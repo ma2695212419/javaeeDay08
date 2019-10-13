@@ -1,0 +1,133 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>checkbox</title>
+<script type="text/javascript">
+	var selAllNo = function(){
+			var ch = document.getElementById("chid");
+			if(ch.checked == true){
+					selAll();
+				}
+			else{
+					selNo();
+				}	
+		}
+	var selAll = function(){
+			var loves = document.getElementsByName("love");
+			for(var i = 0; i < loves.length; i++){
+				var love = loves[i];
+				love.checked = true;
+			}
+		}
+		var selNo = function(){
+			var loves = document.getElementsByName("love");
+			for(var i = 0; i < loves.length; i++){
+				var love = loves[i];
+				love.checked = false;
+			}
+		}
+		var selOther = function(){
+			var loves = document.getElementsByName("love");
+			for(var i = 0; i < loves.length; i++){
+				var love = loves[i];
+				if(love.checked == false){
+					love.checked = true;
+					}				
+				else{
+					love.checked = false;
+					}
+			}
+		}
+		var selTORight = function(){
+			var sel1 = document.getElementById("sel1");
+			var sel2 = document.getElementById("sel2");
+			var ops = sel1.getElementsByTagName("option");
+			for(var i = 0; i < ops.length; i++){
+					var op = ops[i];
+					if(op.selected == true){
+							sel2.appendChild(op);
+							i--;
+						}
+				}
+		}
+		var allToRight = function(){
+			var sel1 = document.getElementById("sel1");
+			var sel2 = document.getElementById("sel2");
+			var ops = sel1.getElementsByTagName("option");
+			for(var i = 0; i < ops.length; i++){
+					var op = ops[i];
+					sel2.appendChild(op);
+					i--;
+				}
+		}
+		var selToLeft = function(){
+			var sel1 = document.getElementById("sel1");
+			var sel2 = document.getElementById("sel2");
+			var ops = sel2.getElementsByTagName("option");
+			for(var i = 0; i < ops.length; i++){
+					var op = ops[i];
+					if(op.selected == true){
+							sel1.appendChild(op);
+							i--;
+						}
+				}
+		}
+		var allToLeft = function(){
+			var sel1 = document.getElementById("sel1");
+			var sel2 = document.getElementById("sel2");
+			var ops = sel2.getElementsByTagName("option");
+			for(var i = 0; i < ops.length; i++){
+					var op = ops[i];
+					sel1.appendChild(op);
+					i--;
+				}
+		}
+</script>
+</head>
+
+<body>
+<div>
+<input type="checkbox" id="chid" onclick="selAllNo()"/>全选/全不选<br />
+	<input type="checkbox" name="love" />唱歌
+	<input type="checkbox" name="love" />看电影
+	<input type="checkbox" name="love" />喝茶
+	<input type="checkbox" name="love" />游泳
+	<input type="checkbox" name="love" />登山
+	<input type="checkbox" name="love" />钓鱼<br />
+	<input type="button" value="全选" onclick="selAll()" id="selAll"/>   
+	<input type="button" value="全不选" onclick="selNo()"/>
+	<input type="button" value="反选" onclick="selOther()"/>
+</div>
+<div id="left" style="float:left">
+	<select multiple="multiple" id="sel1" style="width:100px; height:200px">
+    	<option>aaa</option>
+        <option>bbb</option>
+        <option>ccc</option>
+        <option>ddd</option>
+        <option>eee</option>
+        <option>fff</option>
+        <option>ggg</option>
+    </select>
+    <br />
+    <input type="button" value="选中添加到右边" onclick="selTORight()"/> 
+    <br /> 
+	<input type="button" value="全部添加到右边" onclick="allToRight()"/>
+</div>
+<div id="right" >
+    <select multiple="multiple" id="sel2" style="width:100px; height:200px">
+        <option>hhh</option>
+        <option>iii</option>
+        <option>jjj</option>
+        <option>kkk</option>
+        <option>lll</option>
+        <option>mmm</option>
+        <option>nnn</option>
+    </select>
+    <br />
+    <input type="button" value="选中添加到左边" onclick="selToLeft()"/>
+    <br /> 
+    <input type="button" value="全部添加到左边" onclick="allToLeft()"/>
+</div>
+</body>
+</html>

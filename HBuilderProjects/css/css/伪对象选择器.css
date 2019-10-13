@@ -1,0 +1,20 @@
+/*
+	 伪对象选择器
+		伪对象也叫伪元素，在过去，伪类和伪元素都被书写成前面只加一个冒号，实际上伪对象应该用两个冒号来定义。
+	伪类和伪对象（元素）的区别
+		伪类一般反映无法在CSS 中轻松或者可靠检测到的某个元素的状态或者属性；
+		伪元素表示DOM 外部的某种文档结构
+	常用伪元素
+	1.E:before/E::before
+	2.E:after/E::after
+	伪元素是在元素内容的前面或后面定义的，必须要添加content:””这个属性，不然伪元素无法定义成功。
+	p::after{ content:"在P 标签元素内容前加了内容"; color: red;}
+*/
+
+input:checked+span {
+	background: #f00;
+}
+
+input:checked+span::after {
+	content: " 我被选中了";
+}

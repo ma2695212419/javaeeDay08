@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>数据类型转换</title>
+	</head>
+
+	<body>
+		<button type="button" onclick="fun02()">你过来呀</button>
+		<script type="text/javascript">
+			let str01 = "10";
+			let a = parseInt(str01)
+			window.console.log(typeof(a))
+			let str02 = toString(a)
+			window.console.log(typeof(str02))
+			var num1 = parseInt("12345red");
+			//返回 12345
+			var num2 = parseInt("0xA");
+			//返回 10
+			var num3 = parseInt("56.9");
+			//返回 56
+			var num4 = parseInt("red");
+			//返回 NaN Not an Number
+			document.write(num1 + "<br/>");
+			document.write(num2 + "<br/>");
+			document.write(num3 + "<br/>");
+			document.write(num4 + "<br/>");
+		</script>
+		<script type="text/javascript">
+			alert(parseFloat("123")); // 可以
+			alert(parseFloat("123.53")); // 可以
+			alert(parseFloat("012")); // 12
+			alert(parseFloat("000012")); // 12
+			alert(parseFloat("0x20")); // 结果为0
+			alert(parseFloat("-59")); // 负数
+			alert(parseFloat("abc123")); // NaN (Not a Number)，表示不是一个数字。
+			alert(parseFloat("123ab2c")); // 结果是123，即会解析前面正确的数字，直到遇到不正确的数字。
+		</script>
+
+		<script type="text/javascript">
+			//is not an number
+			document.write(isNaN("abc") + "<br/>"); //true
+			document.write(isNaN("123") + "<br/>"); //false
+		</script>
+
+	</body>
+
+</html>

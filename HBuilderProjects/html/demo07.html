@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表格网页布局</title>
+</head>
+
+<body>
+    <!--
+		colspan是“column span（跨列）”的缩写。colspan属性用在td标签中，用来指定单元格横向跨越的列数：
+		rowspan 属性定义表头单元格应该横跨的行数。
+		-->
+    <table border="1" width="800" height="600" cellpadding="0" cellspacing="0" align="center">
+        <tr align="center" height="80">
+            <td colspan="6">网站的logo</td>
+        </tr>
+        <tr align="center">
+            <td rowspan="4" width="100">网站的树状列表</td>
+            <td colspan="5" height="80">网站菜单栏</td>
+        </tr>
+        <tr align="center">
+            <td colspan="2">新浪新闻</td>
+            <td>新浪娱乐</td>
+            <td colspan="2">新浪微博</td>
+
+        </tr>
+        <tr align="center">
+            <td colspan="2">百度音乐</td>
+            <td>百度搜索</td>
+            <td colspan="2">百度贴吧</td>d>
+        </tr>
+        <tr align="center">
+            <td colspan="2">唯品会</td>
+            <td>淘宝</td>
+            <td colspan="2">京东</td>
+        </tr>
+
+    </table>
+</body>
+
+</html>

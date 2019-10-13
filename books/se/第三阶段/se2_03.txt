@@ -1,0 +1,68 @@
+﻿1.IO
+	1.1 输入和输出：
+   		InputStream,OutputStream，是流的父类
+       		输入流：输入(读取)，从文件到程序。
+      		输出流：输出(写出)，从程序到文件
+       	注：程序员是站在程序的角度去看的  
+    1.2 流的分类
+    	a)流按照处理能力分
+	   		低级流：--节点流，这个流能明确数据的来源和去向
+   			高级流：--处理流，依托在低级流基础之上
+		b)流按照字节字符分类：
+ 			字节流：按字节为单位处理的流
+ 			字符流：按字符为单位处理的流，都是高级流 
+ 	1.3 常用方法
+ 		a)int read()：读取一个字节，以int形式返回，放入int的低八位，若返回值为-1，表示文件末尾
+ 		  int read(byte[] b)：尝试最多读取给定数组的length个字节并存入到数组，返回值为实际读取
+ 		  	到的字节量
+ 		b)void write()：写出一个字节，写出的是int的低八位
+ 		  void write(byte[] b)：将给定字节数组中的所有字节全部写出
+ 	1.4 文件输入输出流
+ 		FileInputStream：文件输入流
+		FileOutputStream：文件输出流，低级流，以字节为单位，进行读写。
+		FileOutputStream("fos.txt")：没有这个文件名时，会创建文件。不追加，每次运行都会
+			清空文件里的内容，从头开始写。
+		FileOutPutStream("fos.txt",true)：在文件末尾开始写入，有追加效果。
+		eg：使用文件输入输出流实现文件复制
+	1.5 缓冲字节输入输出流
+		BufferedInputStream
+	    BufferedOutputStream
+	           字节缓冲流----高级流
+	    bos.write(byte[] b)：将数组b里的字节写到缓冲区
+	    bos.flush()：将缓冲区里的数据写入文件中。
+	           如果不调用flush()，在流关闭前才将数据写入文件中
+	    eg：使用缓冲字节输入输出流实现文件复制
+	1.6 对象输入输出流
+		ObjectInputStream：用来对对象进行序列化的流
+		ObjectOutputStream：用来对对象进行反序列化的流
+		方法：
+			void writeObject(Object o)：将指定对象转换为一个字节序列后写出
+			Object readObject()：可以从流中读取字节并转换为对应的对象
+		序列化：把数据转换成字节序列（有序的列的字节）
+		反序列化：把字节序列转换数据。
+		如果想把某一个类的对象序列化成字节。那么这个类必须实现序列化接口（Serializable）
+			接口的特点：里面什么都没有
+		transient：序列化时忽略修饰的成员变量的值
+	=====================================================================
+	1.7 Reader和Writer是字符流输入输出流的父类，字符流是以字符为单位读写数据的，一个读写一个字符
+	1.8 常用方法
+		a)int read()：读取一个字符，范湖低16位有效
+		  int read(char[] chs)：从流中读取一个字符数组的length个字符并存入到数组，返回的为实际
+		  读取到的字符量
+		b)void write(int c)：写出一个字符，写出的是int的低16位
+		  void write(char[] chs)：将给定字符数组中的所有字符全部写出
+		  void write(String str)：将给定的字符串写出
+		  void write(char[] chs,int offset,int len)：将给定的字符数组从offset位置连续
+		  		len个字符写出
+	1.9 字符转换输入输出流
+		InputStreamReader：字符输入流
+			使用该流可以设置字符集，并按照规定的字符集从流中按照该编码将字节数据转换为字符数据并读取
+		OutputStreamWriter：字符输出流
+			使用该流可以设置字符集，并按照规定的字符集将字符转换为字节后通过该流写出
+	1.10 BufferedReader和PrintWriter
+		PrintWriter是具有自动行刷新的缓冲字符输出流
+			PrintWriter(OutputStream out,boolean autoFlush)：true表示自动行刷新
+		a)void println方法：若该流具有自动行刷新功能，那么每当通过println方法写出的内容都会被实际写出，
+		而不是进行缓存
+		BufferedReader是缓冲字符输入流，其内部提供了缓冲区，可以提高读取效率
+		a)String readLine()：连续读取一行字符串，直到读取到换行符为止，返回的字符串中不包含换行符

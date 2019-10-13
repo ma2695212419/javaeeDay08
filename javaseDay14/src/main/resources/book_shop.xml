@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<books>
+	<book id="1" price="50">石榴树上结樱桃</book>
+	<book id="2" price="35">浮城迷事</book>
+	<book id="3" price="45">hello树先生</book>
+</books>

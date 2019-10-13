@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>流程控制语句</title>
+	</head>
+
+	<body>
+		<p id="p1"></p>
+		<script type="text/javascript">
+			var arr0 = [0,1,2,3,4,5,6,7,8,9];  
+			for (var i = 0; i < arr0.length; i++) {
+				if(i % 2 == 0){
+					window.console.log(arr0[i])
+				}
+			}
+			window.console.log("++++++++++++++++++++++++")
+			for (var i = 0; i < arr0.length; i++) {
+				if(i % 2 == 0){
+					continue;
+				}
+				window.console.log(arr0[i])
+			}
+			window.console.log("++++++++++++++++++++++++")
+			for (let var1 in arr0) {
+				window.console.log(var1)
+			}
+		</script>
+	</body>
+
+</html>

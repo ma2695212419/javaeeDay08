@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>人脸采集</title>
+    <style>
+        .booth {
+            width: 400px;
+            background: #ccc;
+            border: 10px solid #ddd;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="booth">
+        <video id="video" width="400" height="300"></video>
+        <button id='tack'>拍照</button>
+        <canvas id='canvas' width='400' height='300' style="display:none"></canvas>
+        <img id='img' src=''>
+        <a id='down' href="#">下载</a>
+    </div>
+
+
+    <script>
+        var video = document.getElementById('video'),
+            canvas = document.getElementById('canvas'),
+            snap = document.getElementById('tack'),
+            down = document.getElementById('down'),
+            img = document.getElementById('img'),
+            vendorUrl = window.URL || window.webkitURL;
+
+        //媒体对象
+        navigator.getMedia = navigator.getUserMedia ||
+            navagator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia;
+			navigator.getMedia({
+            video: true, //使用摄像头对象
+            audio: false //不适用音频
+        }, function(strem) {
+            //这个方法要报错：video.src = window.URL.createObjectURL(strem);
+            video.srcObject = strem;
+            video.onloadedmetadata = function(e) {
+                video.play();
+            };
+        }, function(error) {
+            console.log(error);
+        });
+        snap.addEventListener('click', function() {
+
+            //绘制canvas图形
+            canvas.getContext('2d').drawImage(video, 0, 0, 400, 300);
+
+            //把canvas图像转为img图片
+            img.src = canvas.toDataURL("image/png");
+            down.setAttribute("href", img.src);
+            down.setAttribute("download", "拍照.png")
+        })
+    </script>
+</body>
+
+</html>

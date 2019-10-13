@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<p id="p1">
+		我是一段文字
+	</p>
+	<p id="p2">
+		<span>
+			我是区域内的一段文字
+		</span>
+	</p>
+</body>
+<script type="text/javascript">
+	// 获取id为p1的dom元素
+	let p1 = window.document.getElementById("p1")
+	// 获取id为p1的dom元素的字符串内容
+	let p1text = p1.innerText
+	window.console.log(p1)
+	window.console.log(p1text)
+	
+	let p2 = window.document.getElementById("p2")
+	// 获取id为p1的dom元素的字符串内容不含标签
+	let p2text = p2.innerText=p1text
+	// 获取id为p1的dom元素的字符串内容包含标签
+	let p2html = p2.innerHTML
+	window.console.log(p2)
+	window.console.log(p2text)
+	window.console.log(p2html)
+</script>
+</html>

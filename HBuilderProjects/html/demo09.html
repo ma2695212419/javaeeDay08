@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>表单</title>
+</head>
+
+<body>
+    <!--
+        	作者：李昊哲
+        	时间：2017-04-14
+        	描述：表单是一个包含表单元素的区域。
+				表单元素是允许用户在表单中输入内容,比如：文本域(textarea)、下拉列表、单选框(radio-buttons)、复选框(checkboxes)等等。
+				表单使用表单标签 <form> 来设置:
+				action = "接收该页面数据的后台服务器URL"
+					
+				两种最常用的 HTTP 方法是：GET 和 POST。
+				什么是 HTTP？
+					超文本传输协议（HTTP）的设计目的是保证客户机与服务器之间的通信。
+					HTTP 的工作方式是客户机与服务器之间的请求-应答协议。
+					web 浏览器可能是客户端，而计算机上的网络应用程序也可能作为服务器端。
+					举例：客户端（浏览器）向服务器提交 HTTP 请求；服务器向客户端返回响应。响应包含关于请求的状态信息以及可能被请求的内容。
+				两种 HTTP 请求方法：GET 和 POST
+					在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。
+					GET - 从指定的资源请求数据。
+					有关 GET 请求的其他一些注释：
+						GET 请求可被缓存
+						GET 请求保留在浏览器历史记录中
+						GET 请求可被收藏为书签
+						GET 请求不应在处理敏感数据时使用
+						GET 请求有长度限制
+						GET 请求只应当用于取回数据
+					POST - 向指定的资源提交要被处理的数据
+					有关 POST 请求的其他一些注释：
+						POST 请求不会被缓存
+						POST 请求不会保留在浏览器历史记录中
+						POST 不能被收藏为书签
+						POST 请求对数据长度没有要求
+        -->
+    <form action="#" method="post">
+        <table border="1" bordercolor="#0AA00B" cellpadding="0" cellspacing="0" align="center" width="800">
+            <tr>
+                <td width="200">
+                    姓名:
+                </td>
+                <td>
+                    <!--
+                        	描述：多数情况下被用到的表单标签是输入标签（<input>）。输入类型是由类型属性（type）定义的
+                        		文本域通过<input type="text"> 标签来设定，当用户要在表单中键入字母、数字等内容时，就会用到文本域。
+                        		value="在该文本域中默认被显示的内容，如果使用者没有修改该文本域内容这默认会想value中值发送后台服务器"
+                        		name	后台服务器读取前台页面发送过来的数据的唯一性标识
+                        		id		前台页面当前文档中唯一性标识
+                        	注意:表单本身并不可见。同时，在大多数浏览器中，文本域的缺省宽度是20个字符。
+                        		输入内容问值
+                        -->
+                    <input type="text" name="userName" id="userName" value="请在此处输入用户姓名">
+            </tr>
+            <tr>
+                <td>
+                    头像:
+                </td>
+                <td>
+                    <input type="file" name="userLogo" id="userLogo" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    邮箱:
+                </td>
+                <td>
+                    <input type="email" name="userMail" id="userMail" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    生日:
+                </td>
+                <td>
+                    <input type="date" name="userBirthDay" id="userBirthDay" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    账号:
+                </td>
+                <td>
+                    <input type="text" name="userAccount" id="userAccount" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    密码 :
+                </td>
+                <td>
+                    <!--
+                        	描述：密码字段通过标签<input type="password"> 来定义:
+                        -->
+                    <input type="password" name="Password" id="Password" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    年龄:
+                </td>
+                <td>
+                    <input type="text" name="age" id="age" />
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    性别1:
+                </td>
+                <td>
+                    <!--
+                        	描述：<input type="radio"> 标签定义了表单单选框选项
+                        		value="值"
+                        		checked = "checked"代表当前是是默认被选中的值
+                        	习惯：male代表男人，female代表女人
+                        		1代表男人，0代表女人
+                        		true代表男人，false代表女人
+		                -->
+                    男<input type="radio" name="sex" value="male" checked="checked"><br />
+                    女<input type="radio" name="sex" value="female">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    性别2:
+                </td>
+                <td>
+                    <!--
+                        	描述：<select > 标签定义了表单下拉菜单单选框选项默认是单选
+                        		value="值"
+                        		selected="selected"代表当前是是默认被选中的值
+                        	习惯：male代表男人，female代表女人
+                        		1代表男人，0代表女人
+                        		true代表男人，false代表女人
+		                -->
+                    <select name="sex">
+                        <option value="male">男</option>
+                        <option value="female" selected="selected">女</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    爱好1:
+                </td>
+                <td>
+                    <!--
+                        	描述：<input type="checkbox"> 定义了复选框. 用户需要从若干给定的选择中选取一个或若干选项。
+                        		&nbsp;	代表一个空格
+                        -->
+                    跑步<input type="checkbox" name="hobby" id="hobby" value="run"
+                        checked="checked">&nbsp;&nbsp;&nbsp;&nbsp; 登山
+                    <input type="checkbox" name="hobby" id="hobby" value="mountaineering">&nbsp;&nbsp;&nbsp;&nbsp; 游泳
+                    <input type="checkbox" name="hobby" id="hobby" value="swimming"
+                        checked="checked">&nbsp;&nbsp;&nbsp;&nbsp; 看电影
+                    <input type="checkbox" name="hobby" id="hobby" value="movie">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    爱好2:
+                </td>
+                <td>
+                    <!--
+                        	描述：<select > 标签定义了表单下拉菜单单选框选项
+                        		value="值"
+                        		multiple="multiple"代表多选下拉菜单
+                        		selected="selected"代表当前是是默认被选中的值
+                        -->
+                    <select name="hobby" multiple="multiple" size="5">
+                        <option value="run" selected="selected">跑步</option>
+                        <option value="mountaineering">登山</option>
+                        <option value="swimming">游泳</option>
+                        <option value="movie" selected="selected"> 看电影</option>
+
+                        <option value="run">跑步</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    内心独白:
+                </td>
+                <td>
+                    <!--
+                        描述：<textarea>元素，俗称“文本域”，或者“多行文本框”，
+                        	其自带原生的HTML属性rows表示行的意思，可以改变<textarea>的可视区域高度，
+                        	cols表示列，可以改变<textarea>的可视区域宽度。
+                    -->
+                    <textarea name="sole" rows="15" cols="50">
+						沉稳不带没有激情，责任不意味牺牲性趣。
+					</textarea>
+                </td>
+            </tr>
+            <tr>
+                <!--
+                    描述：<input type="submit">表单提交
+                -->
+                <td colspan="2">
+                    <input type="submit" value="申请" />
+                    <input type="reset" value="重新填写" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

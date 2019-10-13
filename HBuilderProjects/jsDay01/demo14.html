@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>定时器</title>
+<body>
+	<button type="button" id="start" onclick="start()">计时开始</button>
+	<button type="button" id="stop" onclick="stop()">计时暂停</button>
+	<script type="text/javascript">
+		// setInterval(函数,时间间隔)
+		// 间隔多少时间执行一次函数
+		let a = 0
+		let time;
+		let start = ()=>{
+			time = setInterval(()=>{
+				a++
+				window.console.log(a)
+			},(500))
+		}
+		let stop = ()=>{
+			clearInterval(time)
+		}
+		
+	</script>
+</body>
+</html>

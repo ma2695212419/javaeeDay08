@@ -1,0 +1,84 @@
+1.　DBUtils概述
+
+　　DBUtils 是 JDBC的一个简化开发工具包.使用DBUtils需要导入的jar包:commons-dbutils-1.4.jar
+
+　　核心类:QueryRunner
+
+　　包 org.apache.commons.dbutils 
+　　java.lang.Object
+ 　　　|--org.apache.commons.dbutils.AbstractQueryRunner
+    　　　　|--org.apache.commons.dbutils.QueryRunner
+
+　　
+
+　　构造方法:
+
+　　　　QueryRunner(DataSource ds),接收数据源,可使用DBCP,C3P0等工具获得.
+
+　　常用API:
+
+　　　　1.　查询
+
+　　　　<T> T query(String sql, ResultSetHandler<T> rsh, Object... params)
+
+　　　　　　执行sql中封装的查询语句,sql语句采用预处理对象带参形式,将sql语句中的参数通过params传入,并返回结果对象,根据ResultSetHandler传入的实现类不同,结果对象可以是对象集合或者单个对象
+
+　　　　<T> T query(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params)
+
+　　　　　　这个方法可使得调用者控制连接的获得与关闭,并可同时开启一个事务.
+
+　　　　2.　更新
+
+　　　　int update(String sql, Object... params)
+
+　　　　　　可以进行插入,更新,删除等操作.返回被影响的数据条数.
+
+　　　　int update(Connection conn, String sql, Object... params)
+
+　　　　　　这个方法可使得调用者控制连接的获得与关闭,并可同时开启一个事务.
+
+　　
+
+　　　　3.关于结果集处理
+
+　　
+
+　　　　Interface ResultSetHandler<T>
+
+　　　　　　T为作为输入的结果集将要转换成的目标对象类型.
+
+　　　　　　T handle(ResultSet rs) 该方法接收sql语句的查询结果ResultSet,并将结果集转化成具体类型的对象
+
+　　　　ResultSetHandler的三个常用实现类
+
+　　　　　　a.BeanHandler<T>
+
+　　　　　　　　构造方法 :BeanHandler(Class<T> type)
+
+　　　　　　　　　　type为将要目标JavaBean的字节码
+
+　　　　　　　　实现方法:T handle(ResultSet rs)
+
+　　　　　　　　　　使用type类型字节码构造一个目标类JavaBean对象,并把查询得到的结果集的第一行的记录的内容封装这个对象中,作为返回值返回给调用者query,并作为query的返回结果.
+
+　　　　　　b.BeanListHandler<T>
+
+　　　　　　　　与BeanHandler类似,只不过是返回的是目标类JavaBean的List集合.
+
+　　　　　　c.ScalarHandler
+
+　　　　　　　　这个类用于处理查询语句中使用聚合函数的情况,使用无参构造函数创建ScalarHandler对象时,它的handle方法将返回查询结果第一列的内容.
+
+　　
+
+　　DBUtils工具类
+
+　　　　DBUtils工具类提供了一些关于事务操作的方法,可以方便处理异常等.
+
+　　　　static void commitAndClose(Connection conn) throws SQLException提交并关闭，如果有异常抛出
+
+　　　　static commitAndCloseQuietly(Connection conn)  提交并关闭，如果有异常不做任何处理
+
+　　　　static rollbackAndClose(Connection conn) throws SQLException 回滚并关闭，如果有异常抛出
+
+　　　　static rollbackAndCloseQuietly(Connection conn)  回滚并关闭，如果有异常不做任何处理

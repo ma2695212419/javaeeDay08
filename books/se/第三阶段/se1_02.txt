@@ -1,0 +1,83 @@
+﻿1.正则表达式
+	1.1 实际开发中，经常需要对字符串数据进行一些复杂的匹配，查找，替换等操作，通过"正则表达式"，可以
+	方便的实现字符串的复杂操作
+	1.2 基本正则表达式
+		[]:对里面的内容选择其中一个
+	  	[abcd]:abcd中的一个
+	  	[0123456789]:
+	  	[0-9]:数字中的任意一个
+	  	[a-z]:小写字母a-z中任意一个
+	  	[0-9a-zA-Z_]:单词字符中的任意一个
+	  	\d:数字字符中的任意一个
+	  	\w:单词字符中的任意一个
+	  	\s:表示空格，\t\n\r\f
+	  	[^abc]:除了a,b,c之外的任意一个单词字符
+	  	[A-Z&&[^ABC]]:A-Z中除了ABC中的任意一个字符
+	  	X?:表示X出现0次或1次
+	  	X+:表示X出现1次或1次以上
+	  	X*:表示X出现0次以上
+	  	X{m}:表示X出现m次
+	  	X{m,}:表示X至少出现m次
+	  	X{m,n}:表示X至少出现m次，最多出现n次
+  		():对正则表达式进行分组：可以进行或运算   --- ｜
+  		eg：
+  			1)检索邮政编码(6位数字)
+  			2)匹配手机号码(+86或0086 空格若干 11位数字)
+  	1.3 String对正则表达式的支持
+		a)matches(String regex)：将一个字符串与指定正则表达式进行匹配，成功返回true
+		b)split(String regex)：拆分字符串成为String类型的数组
+		c)replaceAll(String regex,String newStr)：替换符合正则表达式的那部分字符串
+	  	注：如果正则表达式使用了：
+		  	  ^:从头开始进行匹配
+		  	  $:结尾也进行匹配
+2.Object
+	2.1 所有引用类型的父类
+	2.2 Object类里封装了引用类型的共同行为(功能)
+		a)toString()：描述对象的信息
+		b)equals()：比较对象之间的成员变量
+	2.3 重写equals()的步骤：
+		a)考虑null
+		b)考虑this
+		c)考虑类型 
+	2.4 equals()和==的区别
+	  ==：比较对象的地址信息
+	  equals()：比较对象的成员变量
+	注意：String类型重写了Object的equals()
+		StringBuilder类型没有重写
+		StringBuffer：线程安全
+	常见笔试题：
+		String,StringBuilder,StringBuffer什么区别 
+3.包装类
+	3.1 在类型转换时，可能会碰到这样的需求：把基本数据类型转换成对象类型
+		把基本数据类型的值封装起来--会变成对象---包装类
+		包装类                              基本类型                               父类型
+		Byte-----------byte--------------Number
+	    Short----------short-------------Number
+	    Integer--------int---------------Number
+	    Long-----------long--------------Number
+	    Float----------float-------------Number
+	    Double---------double------------Number
+	    Character------char--------------Object
+	    Boolean--------boolean-----------Object
+	3.2 Number是包装类的父类
+   	  	a)八大基本数据类型没有父类，也不能有子类
+   	  	b)包装类是final修饰的，也不能有子类，对象不可变
+   	  	c)装箱：基本类型-------->包装类型
+   	 	d)拆箱：包装类---------->基本类型
+   	3.3  对于包装类：提供拆箱的方法
+		byteValue();
+		shortValue();
+		intValue();
+		longValue();
+		floatValue();
+		doubleValue();
+	3.4 JDK5.0以上，提供了自动装箱，拆箱功能
+	3.5 包装类里提供将字符串转换成包装类型的对象
+		Integer.parseInt(String str);将字符串转换为int型
+		Double.parseDouble(String str);将字符串转换为double型
+		如果字符串不是纯数字，有其他字符，运行期间，会报异常：NumberFormatException
+	3.6 运行时异常：
+		ArrayIndexOutOfBoundsException：数组下标越界异常
+		NullPointerException：空指针异常
+		ClassCastException：类造型异常
+	3.7 包装类的计算：先拆箱，计算

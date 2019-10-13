@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// 临时存储使用的是key value数据结构
+		// 注意 value值只能是字符串无法存储对象
+		// 如果向存储对象需将对象转为字符
+		// 例如可以使用JSON.stringify()将javascript对象转换为json字符串
+		let person = {
+			"account" : "root",
+			"password" : "root123",
+		}
+		sessionStorage.setItem("person",JSON.stringify(person))
+		window.location.replace("demo04.html")
+	</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片</title>
+</head>
+<body>
+    <!--
+		在 HTML 中，图像由<img> 标签定义。
+		<img> 是空标签，意思是说，它只包含属性，并且没有闭合标签。
+		要在页面上显示图像，你需要使用源属性（src）。src 指 "source"。源属性的值是图像的 URL 地址。
+		定义图像的语法是：
+		<img src="url" alt="some_text" title="some_text">
+		URL 指存储图像的位置。如果名为 "pulpit.jpg" 的图像位于 www.ekgc.cn 的 images 目录中，那么其 URL 为 
+		srcset=""以最合适的src去匹配不同屏幕（高分屏低分屏如Retina；大屏小屏）
+	-->
+	<img src="http://assets.kgc.cn/upload/file/20190416/1555375994280734.png" alt="网上图片资源走丢了">
+	<br />
+	<img src="./img/banner02.jpg" alt="图片资源不存在" srcset="">
+	<br />
+	<img src="./img/banner01.jpg" alt="图片资源不存在" srcset="">
+	<br />
+	<img src="./img/banner02.jpg" title="点击查看原网页" alt="图片资源不存在" srcset="">
+	<br />
+	<a href="http://www.ekgc.cn">
+		<img src="./img/logo.png" title="点击查看原网页" alt="图片资源不存在" srcset="">
+	</a>
+</body>
+</html>

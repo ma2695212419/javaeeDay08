@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>四种输出</title>
+	</head>
+
+	<body>
+		<p id="p1"></p>
+		<script type="text/javascript">
+			// 浏览器弹窗
+			window.alert("每时每课给你薪机会")
+			// 控制台输出
+			window.console.log("每时每课给你薪机会")
+			// 页面输出输出
+			window.document.write("每时每课给你薪机会")
+			// 区域输出
+			// 1获取页面输出位置
+			var p1 =  window.document.getElementById("p1")
+			// 2向页面指定位置输出
+			p1.innerText="我爱你中国"
+			// window内置的BOM对象
+			// window.document内置的DOM对象
+		</script>
+	</body>
+
+</html>

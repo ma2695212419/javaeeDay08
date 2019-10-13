@@ -1,0 +1,4 @@
+项目或者pom.xml文件右键---> Run As ---> maven test 会测试所有测试方法
+在pom文件位置
+mvn test -D test=完整类名#方法名
+mvn test -D test=cn.kgc.tangcco.tcst004.lihaozhe.back.dao.EmpDaoTest#doCreate

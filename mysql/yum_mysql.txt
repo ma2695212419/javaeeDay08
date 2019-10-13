@@ -1,0 +1,92 @@
+yum -y install wget
+wget https://repo.mysql.com//mysql80-community-release-el7-3.noarch.rpm
+rpm -Uvh mysql80-community-release-el7-3.noarch.rpm
+yum install epel-release.noarch
+yum repolist all | grep mysql
+
+
+yum -y install yum-utils 
+#上传文档
+要安装最新GA系列的最新版本，不需要配置。
+要从非最新GA系列的特定系列安装最新版本，请禁用最新GA系列的子目录，并在运行安装命令之前为特定系列启用子目录。
+如果您的平台支持yum config manager或dnf config manager命令，
+则可以通过发出以下命令来执行此操作：禁用8.0系列的子报告，启用5.7系列的子报告；对于未启用dnf的平台：
+yum-config-manager --disable mysql80-community
+yum-config-manager --enable mysql57-community
+
+For dnf-enabled platforms:
+
+dnf config-manager --disable mysql80-community
+dnf config-manager --enable mysql57-community
+
+除了使用YUM配置管理器或DNF CONFIG管理器命令之外，
+还可以通过手动编辑 /etc/yum.repos.d/mysql-community.repo文件来选择系列。
+这是文件中的一个发布系列“子库”的典型条目：
+
+[mysql80-community]
+name=MySQL 8.0 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/6/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+找到要配置的子报表的条目，然后编辑启用的选项。
+指定enabled=0以禁用子报表，或指定enabled=1以启用子报表。
+例如，要安装MySQL5.7，请确保已为上述MySQL8.0子目录条目enabled=0，并为5.7系列条目enabled=1：
+# Enable to use MySQL 5.7
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+##############################################################
+yum repolist enabled | grep mysql
+yum -y install mysql-community-server
+
+#CentOS 6.x
+service mysqld start
+service mysqld status
+
+#CentOS 7.x
+systemctl start mysqld.service
+systemctl status mysqld.service
+
+grep 'temporary password' /var/log/mysqld.log
+
+mysql -uroot -p
+5.x
+set global validate_password_policy=0;
+set global validate_password_length=4;
+8.x
+set global validate_password.policy=0;
+set global validate_password.length=4;
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'phoenix';
+或者
+set password for 'root'@'localhost'=password('phoenix');
+use mysql;
+update user set host = '%' where user ='root';
+flush privileges;
+exit;
+mysql -uroot -p
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'phoenix';
+flush privileges;
+
+
++++++++++++++++++++++++++++
+use mysql;
+update user set authentication_string=PASSWORD("phoenix") where user='root';
+update user set host = '%' where user='root';
+update user set plugin="mysql_native_password";
+flush privileges;
+quit;
++++++++++++++++++++++++++++
+Server version: 5.7.26-0ubuntu0.18.04.1 (Ubuntu)
+use mysql;
+update user set host = '%',authentication_string=PASSWORD("phoenix"),plugin="mysql_native_password" where user='root';
+flush privileges;
+quit;
++++++++++++++++++++++++++++s
+
+yum install mysql-workbench-community

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>lamda表达式</title>
+	</head>
+
+	<body>
+		<button type="button" onclick="fun01()">你过来呀</button>
+		<button type="button" onclick="fun02()">我过来了</button>
+		<button type="button" onclick="fun04()">算出来了吗</button>
+		<script type="text/javascript">
+			// 函数表达式
+			function fun01() {
+				window.alert("我爱你中国")
+			}
+			// 变量式声明
+			var fun02 = () => {
+				window.alert("我爱你中国")
+			}
+			var fun03 = (a, b) => {
+				return a + b;
+			}
+			var fun04 = () => {
+				var sum = fun03(10, 20);
+				window.alert(sum)
+			}
+			var arr0 = [0,1,2,3,4,5,6,7,8,9];  
+			arr0.forEach((i) =>{
+				window.console.log(i)
+			})
+		</script>
+		
+	</body>
+
+</html>

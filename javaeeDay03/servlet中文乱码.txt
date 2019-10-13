@@ -1,0 +1,25 @@
+乱码原因
+
+　　传输方和接收方采用的编码不一致。传输方对参数采用的是UTF-8编码而接收方却用GBK进行解析，当然是乱码。 Tomcat服务器默认采用的ISO8859-1编码得到参数值。虽然①中采用了同样的编码方式，但经过tomcat一处理，也会出现乱码(GET方式) 
+
+1、请求中文乱码的处理：
+--post	
+　　request.setCharacterEncoding("UTF-8");
+--get
+　　String name	=	new String(“中国”.getBytes（“iso-8859-1”）,“UTF-8”)
+
+2、响应中文乱码的处理:
+--①字节流:
+　　 设置浏览器默认打开的编码:
+　　　　resposne.setHeader(“Content-Type”,”text/html;charset=UTF-8”);
+　　设置中文字节取出的时候编码.
+　　　　 “中文”.getBytes(“UTF-8”);
+--② 字符流:
+　　 设置浏览器打开的时候的编码
+ 　　　　resposne.setHeader(“Content-Type”,”text/html;charset=UTF-8”);
+ 　　设置response的缓冲区的编码
+ 　　　　response.setCharacterEncoding(“UTF-8”);
+
+　　**简化的写法
+
+　　　　response.setContentType(“text/html;charset=UTF-8”);

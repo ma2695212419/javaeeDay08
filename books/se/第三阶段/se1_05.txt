@@ -1,0 +1,37 @@
+﻿1.Set
+	1.1 特点：无序不重复
+		a)无序：指的是取出顺序和存入顺序不一样
+		但是，内部是有自己的存储顺序的，元素不变的情况下，内部顺序是固定的
+		b)不重复：
+			--指同一个对象不能被存入两次
+			--hashCode值相同的，equasl相同的不能存入set里
+	1.2 Set底层就是用Map来实现的。
+		所以，存入Set集合的元素类型需要重写HashCode算法 
+	1.3 存入Set集合里的元素,一定不要修改元素信息。否则会造成不必要的麻烦	
+	1.4 常用实现类 HashSet
+2.Map 
+	2.1 特点：以键值对(key-value)形式存在的一种数据结构，可以看成是 多行两列的集合
+	2.2 常用实现类 HashMap(无序)和LinkedHashMap(有序)
+	2.3 常用方法：
+		a)V put(K k, V v)：将制定的key-value键值对存入到map中，如果在集合中已经包含了该key，
+		则该方法为替换原来key对应的value，并且将该value返回，如果没有相同的key，则返回null
+		b)V get(Object k)：根据参数key返回相应的value值，如果不存在则返回null
+		c)boolean containsKey(Object key)：判断map中是否包含指定的key，包含返回true
+	2.4 Map的遍历
+		a)遍历所有的key
+			Set<Key> keySet()：该方法会将Map中所有的key存入一个Set集合后返回
+		b)遍历所有的key-value
+			Set<Entry<Key,Value>> entrySet()：该方法会将Map中的每一组key-value键值对
+		封装成一个Entry对象并存入到一个Set集合并返回
+		c)遍历所有的value(不常用)
+			Collection<V> values()：该方法会将Map中所有的value存入到一个集合中，因为value
+		可能会重复，所以使用Collection来存放，泛型就是Map中value的泛型
+			
+		
+
+
+
+
+
+
+

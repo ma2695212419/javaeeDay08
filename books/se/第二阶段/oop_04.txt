@@ -1,0 +1,175 @@
+﻿1.方法的重写
+	1.1 什么是方法的重写
+		当我们从父类继承过来的方法不能满足我们的需求时，我们需要对方法进行修改，这就是方法的重写
+	1.2 方法重写的特点
+		a)必须发生在父类与子类之间，子类重写父类的方法
+		b)子类的方法签名(方法名和参数列表)与父类的方法签名一样
+		c)子类的返回值类型<=父类的返回值类型
+			-对于基本类型和void的返回值类型，要求子类和父类必须一致
+			-对于引用类型的返回值类型，子类的返回值类型可以是父类返回值类型本身也可以是父类返回值类型的
+			  子类
+		d)子类的访问控制修饰符>=父类的访问控制修饰符
+	1.3 重写和重载的区别
+		a)重载：是在一个类中定义多个方法名相同，参数列表不同的多个方法，在编译时，根据参数的个数和类型
+		                来决定绑定哪个方法
+		b)重写：是指在子类中定义和父类完全相同的方法，在程序运行时，根据对象的类型不同而调用不同的版本
+		eg：
+			class Super{
+				public void f(){
+					System.out.println("Super.f()");
+				}
+			}
+			class Sub extends Super{
+				public void f(){
+					System.out.println("Sub.f()");
+				}
+			}
+			class Goo {
+				public void g(Super obj){
+					System.out.println("g(Super)..");
+					obj.f();
+				}
+				public void g(Sub obj){
+					System.out.println("g(Sub)..");
+					obj.f();
+				}
+			}
+			public class Test{
+				public static void main(String[] args){
+					Super s = new Sub();
+					Goo goo = new Goo();
+					goo.g(s);
+				}
+			} 
+		输出结果为：g(Super)..   Sub.f()
+		结论：重载看类型，重写看对象
+2.package语句
+	2.1 为什么使用package(包)
+		定义类时需要指定类的名称，但如果仅将类的名称作为类的唯一标识，则不可避免的出现命名冲突的问题，这
+	会给组件复用以及团队间的合作造成很大的麻烦。
+		在java中，用包的概念来解决命名冲突的问题，在定义一个类时，除了定义一个类的名称一般还要指定一个
+	包名
+	2.2 包的定义语法
+		package 包名;
+	注：package语句必须写在java源文件的最开始，在定义类之前，类的全名称是"包名.类名"，不同的包中可以
+	定义相同的类名。
+	2.3 包的层次结构
+		包名也可以有层次结构，在一个包中可以包含另外一个包。
+		package 包名1.包名2...包名n;
+	2.4 为了解决各个公司的包命名冲突问题，包命名有一定的规范，如：
+		org.apache.commons.lang.StringUtils
+		其中：org.apache是表示公司或组织的信息(域名倒置)
+			commons表示项目的名称
+			lang表示模块的名称
+			StringUtils类名
+3.import
+	3.1 为什么使用import
+		访问一个类时需要使用该类的全称(包名.类名)，但是这样书写过于繁琐，所以我们引入了import
+			eg：
+				org.apache.commons.lang.StringUtils ss 
+						= new org.apache.commons.lang.StringUtils();
+	3.2 import的作用
+		通过import语句对该类的全称进行声明(只需要声明一次即可)
+			eg：
+				import org.apache.commons.lang.StringUtils;
+	3.3 语法：
+		import 类的全称(包名+类名);
+		使用了import声明类的全称后，在源文件中就可以直接使用类名来访问
+			eg： 
+	 			import org.apache.commons.lang.StringUtil s; 
+	 			main(){
+	 				StringUtils ss = new StringUtils();
+	 			}
+	 	注：import语句书写在package的下方，类的上方
+4.访问控制修饰符
+	4.1 封装的概念(面向对象三大特征之二)
+		封装是指利用抽象数据类型将数据和对数据的基本操作封装在一起， 使其构成一个不可分割的独立实体，数据
+	被保护在抽象数据类型的内部，尽可能的隐藏内部的细节，只保留一些对外接口使之与外部发生联系。
+	4.2 封装的意义 
+		a)降低代码出错的可能性，便于维护
+		b)当内部的实现细节改变时，只要保证对外的功能定义不变，其他模块就不会因此而受到牵连
+	4.3 四种访问控制修饰符以及其权限
+		a)成员(变量和方法)的修饰权限
+							public   protected   默认      private
+			类内		   		1          1       1      1
+			包内                1          1       1
+			子类                1          1       
+			其他                1
+	 	b)类的修饰权限
+	 		public和默认
+5.static关键字
+	5.1 static修饰成员变量
+		a)static修饰的成员变量是不属于对象的数据结构
+		b)static变量是属于类的变量，通常使用类名来引用static成员
+		c)static成员变量和类的信息一起存储在方法区，而不是在堆中，一个类的static成员只有一份，
+		  无论该类创建了多少个对象
+		eg：
+			class Cat{
+				private int age;
+				private static int numOfCats;
+				public Cat(int age){
+					this.age = age;
+					System.out.println(++numOfCats);
+				}
+				public static void main(String[] args){
+					Cat c1 = new Cat(2);
+					Cat c2 = new Cat(3);
+				}
+			}
+			输出结果：2
+	5.2 static修饰方法
+		a)通常的方法都会涉及到具体对象的操作，这些方法在操作时，需要隐式的传递对象的引用(this)
+			eg：
+				int d = p1.distance(p2);
+			调用distance方法时，除了传递p2参数之外，还隐式的传递了p1作为参数，在方法中的this表示
+			的就是p1这个参数，this表示调用该方法的对象
+		b)static修饰的方法则不需要针对某些对象进行操作，其运算结果仅仅与输入的参数有关，调用时
+		直接用类名引用
+			eg：
+				double c = Math.sqrt(3.0 * 3.0 + 4.0 * 4.0);
+			该方法在调用时，没有隐式的传递对象引用，因此在static方法中不可以使用this关键字
+		c)由于static在调用时，没有具体的对象，因此在static方法中不能对非static成员进行访问。
+		static方法的作用在于提供一些"工具方法"或"工厂方法"等
+	5.3 static块
+		a)static块，是属于类的代码块，在类加载期间执行的代码块，只执行一次，可以用来在软件中加载
+		静态资源
+			eg：
+				class Foo{
+					static{
+						System.out.println("Load Foo.class");
+					}
+					public Foo(){
+						System.out.println("Foo()");
+					}
+				}
+				main(){
+					Foo foo = new Foo();
+				}
+			运行结果：Load Foo.class     Foo()
+6.final关键字
+	6.1 final修饰变量
+		a)final修饰成员变量，意为不可改变
+			final修饰成员变量，两种初始化方式
+				--声明同时初始化
+				--构造方法中初始化
+		b)final修饰局部变量，使用前初始化即可
+		c)final修饰方法不能被重写
+		d)final修饰类不能被子类继承
+		e)static final常量必须声明同时进行初始化，不可被改变，会在编译器被替换
+			eg：
+				class Foo{
+					public static final int NUM = 100;
+				}
+				class Goo{
+					public static void main(String[] args){
+						System.out.println(Foo.NUM);
+					}
+				}
+			代码编译时，Foo.NUM的值被替换为常量值100，在运行Goo类时，Foo类不需要被载入
+			
+	
+			
+	 		
+		
+	 	
+			

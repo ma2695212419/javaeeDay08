@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>对象</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// json字符串
+		let empString = '{"name" : "李昊哲","age" : "37"}'
+		// JSON.parse()将json字符串解析为javascript对象
+		let emp = JSON.parse(empString)
+		window.console.log(emp.name)
+		let person = {
+			"name" : "李昊哲",
+			"age" : 37,
+		}
+		// JSON.stringify()将javascript对象转换为json字符串
+		let personString = JSON.stringify(person)
+		window.console.log(personString)
+	</script>
+</body>
+</html>

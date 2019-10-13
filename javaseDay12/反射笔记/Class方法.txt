@@ -1,0 +1,80 @@
+Class的API:
+
+getName();————获取完整类名字
+
+getSimpleName();————获取简单的类名字(不包含包名)
+
+getDeclaredField(String name);————获得一个属性,参数是属性名称
+
+getDeclaredFields();————获得所有属性,返回Field[]
+
+getDeclaredMethods();————获取所有方法,返回Method[]
+
+getDeclaredMethod(String name, parameterTypes);————获取方法,返回Mthod，第一个参数是方法名称，第二个是方法参数的类类型(第二个参数可以给null)
+
+getDeclaredConstructors();————获取所有构造器,返回Constructor<?>[]
+
+getDeclaredConstructor(parameterTypes)；————获取构造器，参数是构造方法参数的类类型(可以是null)
+
+newInstance();————创建当前类的对象并返回(注意强转)
+注意:newInstance方法会调用无参构造方法,所以类里面一定要有无参构造方法。
+
+getClassLoader();————获取类加载器
+
+Method的API:
+invoke(obj, args);————调用该方法,第一个参数为对象名,第二个为被调用的方法参数的Class对象
+getGenericParameterTypes();————获取当前方法参数的泛型,返回Type[]
+
+
+
+Field的API:
+set(obj, value);————给属性赋值,第一个参数为对象名,第二个参数为要赋的值
+注意:如果要被赋值的属性是private的会抛java.lang.IllegalAccessException,可以通过setAccessible方法来解决这个问题
+
+Constructor的API:
+
+newInstance(，，，，);————实例化当前类对象，参数根据实际情况而定
+注意:可以通过反射拿到有参构造器,在通过有参构造器的对象实例化并给属性赋值
+
+通用方法:
+setAccessible(boolea flag);————通知jvm是否需要安全检查,默认是flase,true是不需要检查
+
+
+常见的字节码操作类库:
+BCEL
+ASM
+CGLIB
+Javassist
+
+
+
+
+
+类加载器方法:
+getParent()————返回该类加载器的父类加载器
+loadClass(String name)————加载名称为name的类,返回Class的实例
+findClass(String name)————查找名为name的类,返回Class的实例
+findLoadedClass(String name)————查找名称为name的已被加载过的类,返回的结果是Class的实例
+defineClass(String name,byte[]b,int off,int len)————把字节数组b中的内容转换成java类,返回的结果是Class类的实例。这个方法被声明为final的。
+resolveClass(Class<?>c)————链接指定的java类
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

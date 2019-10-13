@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/login.css">
+		<script src="../js/login.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="main">
+			<form>
+				账号:<input type="text" id="account" name="account" value="" placeholder="请输入账号" autocomplete="off"><br>
+				密码:<input type="password" id="password" name="password" value="" placeholder="请输入密码" autocomplete="off"><br>
+			</form>
+			<button id="loginBtn" onclick="loginCheck()" onkeyup="keyup()">登录</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input id="remember" name="remember" type="checkbox">
+			<label for="remember">记住我</label>
+
+		</div>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>字符串处理</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			var str1 = "abc"
+			var str2 = "abc"
+			// true
+			// window.alert(str1 == str2)
+			// 恒等于 true
+			// window.alert(str1 === str2)
+			var str3 = new String("abc")
+			var str4 = new String("abc")
+			var str5 = str3
+			// false
+			// window.alert(str3 == str4) 
+			//true
+			// window.alert(str3.valueOf() == str4.valueOf())
+			// true
+			// window.alert(str3 == str5)
+			// true
+			window.alert(str1 == str5)
+		</script>
+		<script type="text/javascript">
+			/*
+				常见的函数：
+					Anchor（） 生产锚点
+					Blink（）   为元素添加blink标签 
+					charAt()    返回指定索引位置处的字符。
+					charCodeAt() 回一个整数，代表指定位置上字符的 Unicode 编码。
+					Concat()    回字符串值，该值包含了两个或更多个提供的字符串的连接。
+					Fontcolor()  把带有 COLOR 属性的一个 HTML <FONT> 标记放置在 String 对象中的文本两端
+					indexOf()    返回 String 对象内第一次出现子字符串的字符位置
+					italics()    把 HTML <I> 标记放置在 String 对象中的文本两端。 
+					Link()         把一个有 HREF 属性的 HTML 锚点放置在 String 对象中的文本两端。
+					Replace()      返回根据正则表达式进行文字替换后的字符串的复制
+					Split()        切割   
+					Substr()       截取子串
+					toUpperCase()  转大写
+					toLowerCase    转小写
+				 */
+			//方法
+			document.write("第五章".anchor("ch1"));
+			document.write("第五章".blink());
+			// 	返回在指定位置的字符。
+			document.write("第五章".charAt(0));
+			document.write("a".charCodeAt(0));
+			document.write("第五章".concat("abc"));
+			document.write("第五章".fontcolor("#ff0000"));
+			document.write("第五章".indexOf("五"));
+			document.write("第五章".italics());
+			document.write("第五章".link());
+			document.write("helloworld".replace(/l/g, "L"));
+			document.write("<br/>");
+			var names = "jack-lili-lucy".split("-");
+			for (var temp in names) {
+				document.write(names[temp] + "<br/>");
+			}
+			document.write("<br/>");
+			document.write("helloworld".substr(1, 2)); //el
+			document.write("helloworld".substring(1, 2)); //e
+			document.write("helloworld".toUpperCase());
+			document.write(new String("java").toString() == new String("java").toString());
+		</script>
+	</body>
+</html>

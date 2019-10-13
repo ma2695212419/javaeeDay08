@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>对象</title>
+</head>
+<body>
+	<script type="text/javascript">
+		// emp是个对象
+		let emp = {
+			// 属性与属性的值之间为key:value结构
+			// 属性为字符串 : 属性的值
+			"name" : "李昊哲",
+			"age" : 37,
+			"haha" : () => {
+				window.alert('OK')
+			}
+		}
+		// 向对象中增加属性和属性的值
+		emp.gender = 1;
+		window.console.log(emp)
+		// 获取对象中属性的值 使用对象名点属性名即可
+		window.console.log('年龄 >>> ' + emp.age)
+		emp.haha()
+	</script>
+</body>
+</html>

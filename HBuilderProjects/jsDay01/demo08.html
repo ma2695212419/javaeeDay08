@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>var变量提升风险</title>
+	</head>
+
+	<body>
+		<button type="button" onclick="fun02()">你过来呀</button>
+		<script type="text/javascript">
+			// let		用于声明变量
+			// const	用于声明常量	常量也称之为字面量
+			let a = 20;
+			const b = 50;
+			a = 30;
+			window.console.log(a)
+			// b = 60;
+			window.console.log(b)
+		</script>
+		
+	</body>
+
+</html>

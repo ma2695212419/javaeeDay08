@@ -1,0 +1,16 @@
+在webapp上使用input:file, 指定capture属性调用默许相机，摄像，录音功能
+## 在webapp上使用input:file, 指定capture属性调用默认相机，摄像，录音功能
+
+在iOS6下开发webapp，使用inputz之file，很有用
+
+<input type="file" accept="image/*" capture="camera">
+<input type="file" accept="video/*" capture="camcorder">
+<input type="file" accept="audio/*" capture="microphone">
+capture表示，可以捕获到系统默认的设备，比如：camera--照相机；camcorder--摄像机；microphone--录音。
+
+accept表示，直接打开系统文件目录。
+
+其实html5的input:file标签还支持一个multiple属性，表示可以支持多选，如：
+
+<input type="file" accept="image/*" multiple>
+加上这个multiple后，capture就没啥用了，因为multiple是专门yong用来支持多选的。

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+		}
+		a{
+			text-decoration: none;
+		}
+		/*
+		 伪类选择器：伪类选择器就是对元素处于某种状态下进行样式的。
+		 			一般通过冒号进行定义
+					1.E:link 设置超链接a 在未被访问前的样式（特指a 标签）
+					2.E:visited 设置超链接a 在其链接地址已被访问过时的样式（特指a 标签）
+					3.E:hover 设置鼠标悬停在元素上时的样式。不限于a 标签，p、li 也可以使用
+					4.E:active 设置元素在鼠标按下时的样式（不限于a 标签）
+					5.E:not(s) 匹配不含有s 选择器的元素E。
+					 
+		 
+		 注意： 
+		 	1. a:hover 必须被置于 a:link 和 a:visited 之后
+			
+			2. a:active 必须被置于 a:hover 之后
+		
+		*/
+		/*点击之前即该超连接没有被点击过的颜色*/
+		a:link{
+			color: #0000FF;
+		}
+		
+		/*鼠标经过*/
+		a:hover{
+			color: #FF0000;
+		}
+		
+		/*点击事件没有结束即鼠标点下去没有抬起来*/
+		a:active{
+			color: #006400;
+		}
+		
+		/*超链接被点击之后*/
+		a:visited{
+			color: blueviolet;
+	</style>
+</head>
+<body>
+	<a href="http://www.ekgc.cn">课工场</a>
+</body>
+</html>

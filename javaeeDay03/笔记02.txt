@@ -1,0 +1,73 @@
+一：Dbutils是什么？（当我们很难理解一个东西的官方解释的时候，就让我们记住它的作用）
+     Dbutils：主要是封装了JDBC的代码，简化dao层的操作。
+     作用：帮助java程序员，开发Dao层代码的简单框架。
+          框架的作用：帮助程序员，提高程序的开发效率。
+     出生：Dbutils是由Apache公司提供。
+ 
+二：为什么需要Dbutils ？
+     在使用Dbutils 之前，我们Dao层使用的技术是JDBC，那么分析一下JDBC的弊端：
+          （1）数据库链接对象、sql语句操作对象，封装结果集对象，这三大对象会重复定义
+          （2）封装数据的代码重复，而且操作复杂，代码量大
+          （3）释放资源的代码重复
+               结果：（1）程序员在开发的时候，有大量的重复劳动。（2）开发的周期长，效率低
+ 
+三：Dbutils三个核心类介绍：
+     1：DbUtils：连接数据库对象----jdbc辅助方法的集合类，线程安全
+          构造方法：DbUtils()
+          作用：控制连接，控制书屋，控制驱动加载额一个类。
+     
+     2：QueryRunner：SQL语句的操作对象，可以设置查询结果集的封装策略，线程安全。
+          构造方法：
+          （1）QueryRunner()：创建一个与数据库无关的QueryRunner对象，后期再操作数据库的会后，需要手动给一个Connection对象，它可以手动控制事务。
+                    Connection.setAutoCommit(false);     设置手动管理事务
+                    Connection.commit();     提交事务
+ 
+          （2）QueryRunner(DataSource ds)：创建一个与数据库关联的queryRunner对象，后期再操作数据库的时候，不需要Connection对象，自动管理事务。
+                    DataSource：数据库连接池对象。
+ 
+          构造函数与增删改查方法的组合：
+     QueryRunner()
+           update(Connection conn, String sql, Object... params)
+           query(Connection conn, String sql, ResultSetHandler<T> rsh, Object... params)
+ 
+     QueryRunner(DataSource ds)     
+           update(String sql, Object... params)
+           query(String sql, ResultSetHandler<T> rsh, Object... params)
+ 
+（3）ResultSetHandle：封装数据的策略对象------将封装结果集中的数据，转换到另一个对象
+          策略：封装数据到对象的方式（示例：将数据库保存在User、保存到数组、保存到集合）
+     方法介绍：handle（ResultSet rs）
+          备注：详解参考ResultSetHandle实现类
+ 
+四：Dbutils快速入门
+     使用Dbutils注意事项：
+          （1）需要导入的jar包：①MySql驱动     ②c3p0包     ③DbUtils包
+          （2）添加c3p0配置文件
+          （3）可以自行添加一个JDBCUtils工具类：用来获取c3p0连接池对象
+案例一：使用queryRunner对象完成增删改操作：
+案例二：QueryRunner的query方法和ResultSetHandler接口的使用
+     
+     1：数据库表
+          同上一案例User表
+     
+     2：自定义实现ResultSetHandler封装查询结果集
+          自定义策略
+案例三：ResultSetHandler实现类介绍（由DbUtils框架提供）
+     备注：DbUtils给我们提供了10个ResultSetHandler实现类，分别是：
+     ①ArrayHandler：     将查询结果的第一行数据，保存到Object数组中
+      ②ArrayListHandler     将查询的结果，每一行先封装到Object数组中，然后将数据存入List集合
+      ③BeanHandler     将查询结果的第一行数据，封装到user对象
+     ④BeanListHandler     将查询结果的每一行封装到user对象，然后再存入List集合
+     ⑤ColumnListHandler     将查询结果的指定列的数据封装到List集合中
+     ⑥MapHandler     将查询结果的第一行数据封装到map结合（key==列名，value==列值）
+     ⑦MapListHandler     将查询结果的每一行封装到map集合（key==列名，value==列值），再将map集合存入List集合
+     ⑧BeanMapHandler     将查询结果的每一行数据，封装到User对象，再存入mao集合中（key==列名，value==列值）
+     ⑨KeyedHandler     将查询的结果的每一行数据，封装到map1（key==列名，value==列值 ），然后将map1集合（有多个）存入map2集合（只有一个）
+     ⑩ScalarHandler     封装类似count、avg、max、min、sum......函数的执行结果
+ 
+ 
+    以上10个ResultSetHandler实现类，常用的是BeanHandler、BeanListHandler和ScalarHandler，下面将对这三个实现类，写测试类
+     
+    一： 测试BeanHandler策略
+    二：测试BeanListHandler策略
+    三：测试ScalarHandler策略

@@ -1,0 +1,52 @@
+﻿1.String类
+	1.1 String是不可变对象
+		a)String是由final修饰的类，不能被继承
+		b)String底层是由char数组实现的，它封装了字符数组以及针对字符数组的操作
+		c)字符串对象一旦创建，对象永远无法改变，但字符串引用可以重新赋值
+		d)java字符串在内存中使用unicode编码方式，任何一个字符(无论中文还是英文)对应两个字节的
+		定长编码
+	1.2 String常量池
+		a)为了提高性能，静态字符串(字面量/常量/常量连接的结果)在常量池中创建，并尽量使用同一个对象，
+		重用静态字符串
+		b)对于重复出现的字符串直接量，JVM首先会在常量池中查找，如果存在即返回该对象
+	1.3 String常用API
+		a)length()----可以获取字符串的长度(字符的个数)
+		b)indexOf(int ch)----字符在此字符串第一次出现的位置，找不到返回-1
+		  indexOf(int ch,int fromIndex)----从fromIndex开始第一次出现ch的位置
+		  indexOf(String str)----字符串在此字符串第一次出现的位置，找不到返回-1
+		  indexOf(String str,int fromIndex)----从fromIndex开始第一次出现str的位置
+		c)lastIndexOf(int ch);----字符在此字符串最后一次出现的位置，找不到返回-1
+		  lastIndexOf(int ch,int endIndex);----从头开始到指定位置，返回字符最后
+		  	一次出现的位置
+		  lastIndexOf(String str);----字符串在此字符串最后一次出现的位置，找不到返回-1
+		  lastIndexOf(String str,int endIndex);----从头开始到指定位置，返回字符串最后
+		  	一次出现的位置
+		d)substring(int beginIndex);----从指定位置开始截取，一直截取到末尾
+		  substring(int beginIndex,int endIndex);----从指定位置开始截取，一直截取到
+		  	指定位置("含头不含尾")
+		e)replace(String oldStr,String newStr);----将某个字符串全部替换为另一个字符串
+		  replace(char oldChar,char newChar);----将某个字符全部替换为另一个字符
+		f)startsWith(String str)----判断字符串是否以str开头
+		  endsWith(String str)----判断字符串是否以str结尾
+		g)concat(String str)----此字符串后面拼接str
+		h)equals(String str)----判断字符串的样子一样不？？？
+		i)trim()-----去掉字符串的首尾的空白
+		j)toUpperCase()----把字符串里的字母全都变成大写
+		   toLowerCase()----把字符串里的字母全都变成小写
+		k)charAt(int index)----返回index上的字符
+		l)valueOf(Object obj)----把参数转换成String类型
+		m)toCharArray()----把字符串转换字符数组 
+2.StringBuilder及其API 
+	2.1 StringBuilder封装可变字符串
+	2.2 和String类型的区别
+  	  a)String类型的对象不能更改， 如果更改，会创建新的对象
+  	  	StringBuilder的对象是可以改变的，是对这个对象本身进行修改，可长可短
+  	  b)StringBuilder:效率高，速度快，线程不安全
+  	2.3 常用方法：
+  	   append(String str)-----在对象后拼接str,返回此对象
+  	   delete(int startIndex,int endsIndex)
+  	   insert(int index,Object obj)---将obj插入到index上
+  	   reverse()--------将字符串反转。
+  	   toString()-------将StringBuilder对象转换成String对象
+
+	
