@@ -7,6 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import cn.kgc.tangcco.tcbd1016.lihaozhe.commons.jdbc.PageRang;
 import cn.kgc.tangcco.tcbd1016.lihaozhe.commons.md5.MD5Code;
 import cn.kgc.tangcco.tcbd1016.lihaozhe.commons.servlet.BaseServlet;
@@ -39,8 +41,20 @@ public class EmpAction extends BaseServlet {
 	 * @param response HttpServletResponse
 	 */
 	public void login(HttpServletRequest request, HttpServletResponse response) {
-		String account = request.getParameter("account");
-		String password = request.getParameter("password");
+		String account = null;
+		String password = null;
+		if (StringUtils.isEmpty(request.getParameter("account"))) {
+			request.setAttribute("status", "账号不能为空");
+			forword(request, response, subfix("/login"));
+			return;
+		} else if (StringUtils.isEmpty(request.getParameter("password"))) {
+			request.setAttribute("status", "密码不能为空");
+			forword(request, response, subfix("/login"));
+			return;
+		}
+		account = request.getParameter("account");
+		password = request.getParameter("password");
+		
 		Map<String, Object> map = frontEmpService
 				.loginByAccountAndPassword(new Emp(account, new MD5Code().getMD5ofStr(password)));
 		switch (map.get("status").toString().trim()) {

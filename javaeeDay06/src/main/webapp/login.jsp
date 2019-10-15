@@ -11,7 +11,7 @@
 	<form action="${pageContext.request.contextPath}/front/emp.action?methodName=login" method="post">
 		账号：<input type="text" name="account" /><br /> 
 		密码：<input type="password" name="password" /><br /> 
-		<input type="submit" value="登录" />
+		<button id="loginBtn">登录</button>
 	<span>${requestScope.status }</span>
 	</form>
 	<img alt="" src="${pageContext.request.contextPath}/img/login.png">

@@ -1,0 +1,495 @@
+JSP的基本构成
+JSP页面主要由指令标签，注释，嵌入Java代码，JSP动作标签，HTML标记语言等五个元素组成。
+
+3个指令标签
+ 1 、page指令
+page指令用户定义JSP页面中的全局属性 ，Eg:<%@ page attr1=”value1” atrr2=”value2”.......%>
+
+ page指令对整个页面有效，包括静态的包含文件，但page指令不能用于被动态包含的文件，例如使用<jsp:include>包含的文件。在一个JSP页面中可以使用多个page指令，但page指令中的属性只能出现一次(import属性除外)。
+
+page指令的常用属性如下:
+
+ (1) language属性 该属性用于设置JSP页面使用的语言，目前只支持Java语言。例:<%@ page language=”java” %>
+
+ (2) extends属性 该属性用于设置JSP页面所继承的Java类，JSP和Servlet都可以继承指定的父类，但该属性并不常用.
+
+ (3) import属性 该属性用于设置JSP所导入的类包，JSP页面可以嵌入Java代码片段，这些Java代码在调用API时需要导入相应的类包。例:<%@page import=”java.util.*” %>
+
+ (4) pageEncoding属性 该属性用于定义JSP页面的编码格式，指定的文件编码格式。例:<%@ page pageEncoding=”UTF-8” %>
+
+ (5) contentType属性 该属性用于设置JSP页面的MIME类型和字符编码，浏览器会根据些解释页面。 例:<%@ page contentType=”text/html;charset=utf-8” %>
+
+ (6) session属性 该属性用于定义JSP页面是否使用session会话对象，其值是boolean类型，默认值为true. Eg:<%@ page session=”true” %>
+
+ (7) buffer属性 该属性用于设置out对象所使用的缓冲区大小，默认大小是8KB,单位只能是8的倍数。 Eg:<%@ page buffer=”128KB” %>
+
+ (8) autoFlush属性 该属性用于定义JSP页面缓冲存满时是否自动刷新缓存。默认值为true,如果设置为false,则缓存填满时可能会发生异常. Eg:<%@ page autoFlush=”true” %>
+
+ (9) info属性 该属性用于设置JSP页面的一些相关信息，信息可以在Servlet接口的getServletInfo()方法中获取得到。Eg:<%@page info=”This is a JSP” %>
+
+ (10) isErrorPage属性 该属性可以将当前页面定义为错误页面来处理另一个页面转发而来的错误，即异常处理。设置为true以后可以使用exception对象.
+
+ (11)errorPage属性 该属性用于定义此JSP页面发生错误时所转发到的另外一个JSP页面，用于处理此页面所发生的错误。 Eg:<%@page errorPage=”error.jsp” %>
+
+ (12)isELIgnored属性 该属性用于定义些页面是否忽略EL表达式的使用。
+
+2 、include指令
+  Include指令用于文件包含，该指令可以在一个JSP页面中包含另外一个文件中的内容，并且只能支持静态包含，意思是被包含文件的所有内容都被原样包含到时该JSP页面中，被包含的文件可以是一段Java代码，HTML代码，或者是另一个JSP页面。Eg:<%@include file=”other.jsp” %>
+
+3 、taglib指令
+taglib指令允许用户使用标签库自定义新的标签，
+
+Eg:<% taglib uri="taglibURI" prefix="tabPrefix"%>
+taglib指令中的uri属性用于根据标签的前缀对自定义的标签进行唯一的命名，其值可以食相对路径，绝对路径或标签库描述文件。属性prefix制定了标签的前缀。
+
+7个动作指令
+
+
+动作指令与编译指令不间，编译指令是通知 Servlet 引擎的处理消息，而动作指令只是运行时的脚本动作。编译指令在将JSP 编译成 Servlet 时起作用:处理指令通常可替换成 Java脚本，是 JSP脚本的标准化写法。
+
+ JSP7 个 动作指令如下 ：
+
+jsp:forward: 执行页面转向，将请求的处理转发到下一个页面。
+jsp:param: 用于传递参数，必须与其他支持参数曲标签一起使用。
+jsp:include: 用于动态引入一个 JSP 页面。
+jsp:p1ugin: 用于下载 JavaBean 或 Applet 到客户端执行。
+jsp:useBean: 使用 JavaBean。
+jsp:setProperty: 修改 JavaBean 实例的属性值。
+jsp:getProperty: 获取 JavaBean 实例的属性值。
+下面依次讲解这些动作指令。
+
+1..jsp:forward动作 （拿目标页面代替原有页面）　　
+
+jsp:forward动作把请求转到另外的页面。可以转发静态的HTML页面，也可以转发动态的JSP页面，或者转发到容器中的servlet jsp:forward标记只有一个属性page。 page属性包含的是一个相对URL。 page的值既可以直接给出，也可以在请求的时候动态计算
+
+获得上个页面传个来的参数值。
+
+2.jsp:include动作 （拿目标页面插入原有页面）
+
+该动作是一个动态的include指令，也用于带入某个页面，他不会导入被include页面的编译指令，仅仅导入页面的body内容插入到本页面，该动作把指定文件插入正在生成的页面。
+
+其语法如下： flush：用于指定输出缓存是否转移到被导入的文件中，   true：包含在被导入的文件中        false：包含在源文件中。　
+
+前面已经介绍过include指令，它是在JSP文件被转换成Servlet的时候引入文件，而这里的jsp:include动作不同，插入文件的时间是在页面被请求的时候。jsp:include动作的文件引入时间决定了它的效率要稍微差一点，而且被引用文件不能包含某些JSP代码（例如不能设置HTTP头），但它的灵活性却要好得多。
+
+　　例如，下面的JSP页面把4则新闻摘要插入一个“What''s New ?”页面。改变新闻摘要时只需改变这四个文件，而主JSP页面却可以不作修改： 　　　　
+
+　　
+
+　　<P>
+　　Here is a summary of our four most recent news stories:
+　　<OL>
+　　<LI><jsp:include page="news/Item1.html" flush="true"/>
+　　<LI><jsp:include page="news/Item2.html" flush="true"/>
+　　<LI><jsp:include page="news/Item3.html" flush="true"/>
+　　<LI><jsp:include page="news/Item4.html" flush="true"/>
+　　</OL>　
+
+　　
+
+3..jsp:useBean动作 
+
+useBean：用于在jsp页面中初始化一个java实例（如果多个jsp中需要重复使用某段代码，可以把这段代码定义成java类在页面中引用）　　
+
+jsp:useBean动作用来装载一个将在JSP页面中使用的JavaBean。这个功能非常有用，因为它使得我们既可以发挥Java组件重用的优势，同时也避免了损失JSP区别于Servlet的方便性。
+
+jsp:useBean动作最简单的语法为：<jsp:useBean id="JavaBean的名称" class="package.class"包名.类名" scope="有效范围"/>
+
+这行代码的含义是：“创建一个由class属性指定的类的实例，然后把它绑定到其名字由id属性给出的变量上”。不过，就象我们接下来会看到的，定义一个scope属性可以让Bean关联到更多的页面，它可接受四个值：request、session、page、application。此时，jsp:useBean动作只有在不存在同样id和scope的Bean时才创建新的对象实例，同时，获得现有Bean的引用就变得很有必要。　
+
+　获得Bean实例之后，要修改Bean的属性既可以通过jsp:setProperty动作进行，也可以在Scriptlet中利用id属性所命名的对象变量，通过调用该对象的方法显式地修改其属性。这使我们想起，当我们说“某个Bean有一个类型为X的属性foo”时，就意味着“这个类有一个返回值类型为X的getFoo方法，还有一个setFoo方法以X类型的值为参数”。　　有关jsp:setProperty动作的详细情况在后面讨论。但现在必须了解的是，我们既可以通过jsp:setProperty动作的value属性直接提供一个值，也可以通过param属性声明Bean的属性值来自指定的请求参数，还可以列出Bean属性表明它的值应该来自请求参数中的同名变量。　　
+
+在JSP表达式或Scriptlet中读取Bean属性通过调用相应的getXXX方法实现，或者更一般地，使用jsp:getProperty动作。　　
+
+注意，包含Bean的类文件应该放到服务器正式存放Java类的目录下，而不是保留给修改后能够自动装载的类的目录。例如，对于Java Web Server来说，Bean和所有Bean用到的类都应该放入classes目录，或者封装进jar文件后放入lib目录，但不应该放到servlets下。 id:javaBean的实例名 class： javaBean的实现类 scope：指定javaBean实例的生存范围 page：javaBean仅在该页面有效 request：javaBean在本次请求中有效 session： javaBean在本次session内有效 application： javaBean在本应用内一直有效　　下面是一个很简单的例子，它的功能是装载一个Bean，然后设置/读取它的message属性。　
+
+3.1关于jsp:useBean的进一步说明　　
+
+使用Bean最简单的方法是先用下面的代码装载Bean： 　
+
+<jsp:useBean id="name" class="package.class" />
+
+　 　　然后通过jsp:setProperty和jsp:getProperty修改和提取Bean的属性。
+
+不过有两点必须注意。　　
+
+第一，我们还可以用下面这种格式实例化Bean：
+
+<jsp:useBean ...>
+　　Body
+　　</jsp:useBean>
+
+　它的意思是，只有当第一次实例化Bean时才执行Body部分，如果是利用现有的Bean实例则不执行Body部分。正如下面将要介绍的，jsp:useBean并非总是意味着创建一个新的Bean实例。　　
+
+第二，除了id和class外，jsp:useBean还有其他三个属性，即：scope、type、beanName。　　
+
+id：命名引用该Bean的变量。如果能够找到id和scope相同的Bean实例，jsp:useBean动作将使用已有的Bean实例而不是创建新的实例。　　
+
+class：指定Bean的完整包名。 　　
+
+scope：指定Bean在哪种上下文内可用，可以取下面的四个值之一：page、request、session和application。　　默认值是page，表示该Bean只在当前页面内可用（保存在当前页面的PageContext内）。　　
+
+request表示该Bean在当前的客户请求内有效（保存在ServletRequest对象内）。　　
+
+session表示该Bean对当前HttpSession内的所有页面都有效。 　　
+
+最后，如果取值application，则表示该Bean对所有具有相同ServletContext的页面都有效。 　　
+
+scope之所以很重要，是因为jsp:useBean只有在不存在具有相同id和scope的对象时才会实例化新的对象；
+
+如果已有id和scope都相同的对象则直接使用已有的对象，此时jsp:useBean开始标记和结束标记之间的任何内容都将被忽略。　　
+
+type：指定引用该对象的变量的类型，它必须是Bean类的名字、超类名字、该类所实现的接口名字之一。请记住变量的名字是由id属性指定的。　
+
+beanName：指定Bean的名字。如果提供了type属性和beanName属性，允许省略class属性。
+
+ 
+
+4.jsp:setProperty动作
+
+ 　　jsp:setProperty用来设置已经实例化的Bean对象的属性，有两种用法。首先，你可以在jsp:useBean元素的外面（后面）使用jsp:setProperty，如下所示：　此时，不管jsp:useBean是找到了一个现有的Bean，还是新创建了一个Bean实例，jsp:setProperty都会执行。第二种用法是把jsp:setProperty放入jsp:useBean元素的内部，如下所示： 此时，jsp:setProperty只有在新建Bean实例时才会执行，如果是使用现有实例则不执行jsp:setProperty。
+
+　　jsp:setProperty动作有下面四个属性
+
+name：表示要设置属性的是哪个Bean。
+
+　　property：表示要设置哪个属性。有一个特殊用法：如果property的值是"*"，表示所有名字和Bean属性名字匹配的请求参数都将被传递给相应的属性set方法。
+
+　　value：value属性是可选的。该属性用来指定Bean属性的值。字符串数据会在目标类中通过标准的valueOf方法自动转换成数字、boolean、Boolean、byte、Byte、char、Character。例如，boolean和Boolean类型的属性值（比如“true”）通过Boolean.valueOf转换，int和Integer类型的属性值（比如"42"）通过Integer.valueOf转换。　　value和param不能同时使用，但可以使用其中任意一个。
+
+　　Param：param是可选的。它指定用哪个请求参数作为Bean属性的值。如果当前请求没有参数，则什么事情也不做，系统不会把null传递给Bean属性的set方法。因此，你可以让Bean自己提供默认属性值，只有当请求参数明确指定了新值时才修改默认属性值。　　例如，下面的代码片断表示：如果存在numItems请求参数的话，把numberOfItems属性的值设置为请求参数numItems的值；否则什么也不做。
+
+　　　　如果同时省略value和param，其效果相当于提供一个param且其值等于property的值。进一步利用这种借助请求参数和属性名字相同进行自动赋值的思想，你还可以在property（Bean属性的名字）中指定“*”，然后省略value和param。此时，服务器会查看所有的Bean属性和请求参数，如果两者名字相同则自动赋值。
+
+　　下面是一个利用JavaBean计算素数的例子。如果请求中有一个numDigits参数，则该值被传递给Bean的numDigits属性；numPrimes也类似。
+
+　　JspPrimes.jsp 　
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+　　<HTML>
+　　<HEAD>
+　　<TITLE>在JSP中使用JavaBean</TITLE>
+　　</HEAD>
+　　<BODY>
+　　<CENTER>
+　　<TABLE BORDER=5>
+　　<TR><TH CLASS="TITLE">
+　　在JSP中使用JavaBean</TABLE>
+　　</CENTER>
+　　<P>
+　　<jsp:useBean id="primeTable" class="hall.NumberedPrimes" />
+　　<jsp:setProperty name="primeTable" property="numDigits" />
+　　<jsp:setProperty name="primeTable" property="numPrimes" />
+　　Some <jsp:getProperty name="primeTable" property= "numDigits" />
+　　digit primes:
+　　<jsp:getProperty name="primeTable" property="numbered List" />
+　　</BODY>
+　　</HTML>
+
+5.jsp:getProperty动作
+
+ 　　jsp:getProperty动作提取指定Bean属性的值，转换成字符串，然后输出。jsp:getProperty有两个必需的属性，即：name，表示Bean的名字；property，表示要提取哪个属性的值。下面是一个例子，更多的例子可以在前文找到。　　　　... 　　
+
+  
+
+<jsp:useBean id="itemBean" ... />
+　　...
+　　<UL>
+　　<LI>Number of items:
+　　<jsp:getProperty name="itemBean" property="numItems" />
+　　<LI>Cost of each:
+　　<jsp:getProperty name="itemBean" property="unitCost" />
+　　</UL>　 
+
+ 6.jsp:plugin动作 （用于下载服务器端的javaBean或applet到客户端）
+
+　　jsp:plugin动作用来根据浏览器的类型，插入通过Java插件运行Java Applet所必需的OBJECT或EMBED元素。
+
+<jsp:plugin  
+  type="bean | applet"   : 被执行的java程序的类型
+  code="classFileName" ：被执行的文件名，必须以  .class 结尾
+  codebase="classFileDirectoryName"   ：被执行文件的所在目录
+
+  [ name="instanceName" ] :给程序起一个名字用来标识该程序
+  [ archive="URIToArchive, ..." ] ：指向一些要预先载入的将要使用到的类
+  [ align="bottom | top | middle | left | right" ] ：
+  [ height="displayPixels" ]
+  [ width="displayPixels" ]
+  [ hspace="leftRightPixels" ] 
+  [ vspace="topBottomPixels" ]
+  [ jreversion="JREVersionNumber | 1.1" ]   ：能正确运行改程序必须的JRE的版本
+  [ nspluginurl="URLToPlugin" ]  
+  [ iepluginurl="URLToPlugin" ] >
+
+  [ <jsp:params>
+  [ <jsp:param name="parameterName" value="{parameterValue | <%= expression %>}" /> ]+
+  </jsp:params> ]
+
+  [ <jsp:fallback> text message for user </jsp:fallback> ]  ：当不能正确显示该Applet时，显示该指令中的文本提示
+
+ <jsp:plugin>
+
+7.jsp:param 
+
+用于设定参数值，这个指令不能单独使用 可以与以下三个指令结合使用：
+
+jsp:include :用于将参数值出入被导入页面
+
+jsp:forword ： 用于将参数值传入被转向页面
+
+jsp:plugin ： 用于将参数值传入页面中javaBean的实例
+
+
+
+
+
+ 9个内置对象
+
+ JSP中的内置对象（9个）
+
+对象名                             对象的类型                                                               范围
+pageContext                  Javax.servlet.jsp.PageContext                               Page
+page                               Javax.servlet.jsp.HttpJspPage                               Page
+request                           Javasx.servlet.jsp.HttpServletRequest                   Request
+response                        Javax.servlet.jsp.HttpServletResponse                 Page
+session                           Javax.servlet.HttpSessio                                        Session
+application                     Javax.servlet.ServletContext                                  Application
+out                                   Javax.servlet.jsp.JspWriter                                    Page
+config                              Javax.servlet.ServletConfig                                   Page
+exception                        Java.lang.ThrowAble                                             page
+ 
+
+内置对象是不需要声明，直接可以在JSP中使用的对象，JSP有以下几种内置对象： 
+1.request对象 
+request表示HttpServletRequest对象。它包含了有关浏览器请求的信息，并且提供了几个用于获取cookie, header, 和session数据的有用的方法。客户端的请求信息被封装在request对象中，通过它才能了解到客户的需求，然后做出响应。 
+
+1 Object getAttribute(String name) 返回指定属性的属性值，该属性不存在时返回null。 
+2 Enumeration getAttributeNames() 返回所有可用属性名的枚举 
+3 String getAuthType() ;返回用来保护servlet的认证方法的名称，未受保护时返回null。 
+4 String getCharacterEncoding() 返回字符编码方式 
+5 int getContentLength() 返回请求体的长度（以字节数），不能确定长度时返回-1。 
+6 String getContentType() 得到请求体的MIME类型 
+7 String getContentPath() 返回请求的路径。 
+8 Cookie[] getCookies() 返回客户端所有的Cookie的数组。 
+9 Enumeration getHeaderNames() 返回所有HTTP头的名称的集合。 
+10 Enumeration getHeaders( String name ) 返回指定HTTP头的所有值的集合。 
+11 String getHeader( String name ) 返回指定名称的HTTP头的信息。 
+12 long getDateHeader( String name ) 返回指定名称的Data类型的HTTP头的信息。 
+13 int getIntHeader( String name ) 返回指定名称的Int类型的HTTP头的信息。 
+14 ServletInputStream getInputStream() 得到请求体中一行的二进制流 
+15 Locale getLocale() 返回当前页的Locale对象，可以在response中设定。 
+16 Enumeration getLocales() 返回请求中所有的Locale对象的集合。 
+17 String getLocalName() 获取响应请求的服务器端主机名。 
+18 String getLocalAddr() 获取响应请求的服务器端地址。 
+19 int getLocalPort() 获取响应请求的服务器端端口 
+20 String getMethod() 获取客户端向服务器端发送请求的方法(GET、POST)。 
+21 String getParameter(String name) 返回name指定参数的参数值 
+22 Map getParameterMap() 该方法返回包含请求中所有参数的一个Map对象。 
+23 Enumeration getParameterNames() 返回请求中所有参数的集合。 
+24 String[] getParameterValues(String name) 返回包含参数name的所有值的数组 
+25 String getQueryString() 返回get方法传递的参数字符串，该方法不分解出单独的参数。 
+26 String getPathInfo() 取出请求中处于ServletPath和QueryString之间的额外信息。 
+27 String getPathTranslated() 返回用getPathInfo()方法取得的路径信息的实际路径。 
+28 String getProtocol() 返回请求使用的协议。可以是HTTP1.1或者HTTP1.0。 
+29 BufferedReader getReader() 返回请求的输入流对应的Reader对象，该方法和getInputStream()方法在一个页面中只能调用一个。 
+30 String getRemoteAddr() 返回发送此请求的客户端IP地址 
+31 String getRemoteHost() 返回发送此请求的客户端主机名 
+32 String getRemoteUser() 返回经过客户端验证的用户名，未经验证返回null。 
+33 int getRemotePort() 返回发出请求的客户端主机端口。 
+34 String getRealPath(String path) 返回一虚拟路径的真实路径 
+35 RequestDispatcher getRequestDispatcher( String path ) 按给定的路径生成资源转向处理适配器对象。 
+36 String getRequestedSessionId() 返回请求的session的标识。 
+37 String RequestURI() 返回发出请求的客户端地址，但是不包括请求的参数字符串。 
+38 StringBuffer getRequestURI() 返回响应请求的服务器端地址 
+39 String getScheme() 返回请求用的计划名,如:http.https及ftp等 
+40 String getServerName() 返回响应请求的服务器名称。 
+41 String getServletPath() 获取客户端所请求的脚本文件的文件路径。 
+42 int getServerPort() 返回服务器接受此请求所用的端口号 
+43. void removeAttribute( String name ) 在属性列表中删除指定名称的属性。 
+44. void setAttribute( String name, Object value ) 在属性列表中添加/删除指定的属性。 
+45. void setCharacterEncoding( String name ) 设置请求的字符编码格式。 
+46. HttpSession getSession() ; 
+HttpSession getSession( boolean create ) 获取session，如果create为true，在无session的情况下创建一个。 
+47. boolean isRequestedSessionIdFromCookie() 检查请求的会话ID是否为通过Cookie传入。 
+48. boolean isRequestedSessionIdFromURL() 检查请求的会话ID是否为通过URL传入。 
+49. boolean isRequestedSessionIdValid() 检查请求的会话ID是否仍然有效。 
+50. boolean isSecure() 检查请求是否使用安全链接，如果HTTPS等。 
+51. boolean isUserInRole( String role ) 检查已经通过验证的用户是否在是role所指定的角色。 
+52. Principal getUserPrincipal() 返回包含用户登陆名的一个java.security.Principal对象。 
+成员： 
+String BASIC_AUTH = "BASIC" 
+String CLIENT_CERT_AUTH = "CLIENT_CERT" 
+String DIGEST_AUTH = "DIGEST" 
+String FORM_AUTH = "FORM" 
+
+2.response对象 response 
+表示HttpServletResponse对象，主要将JSP容器处理后的结果传回到客户端。 
+
+1 void addCookie( Cookie cookie ) 添加一个Cookie对象，保存客户端信息。 
+2 void addDateHeader( String name, long value ) 添加一个日期类型的HTTP头信息，覆盖同名的HTTP头信息。 
+3 void addHeader( String name, String value ) 添加一个HTTP头，覆盖同名的旧HTTP头。 
+4 void addIntHeader( String name, int value ) 添加一个整型的HTTP头，覆盖同名的旧HTTP头。 
+5 boolean containsHeader( String name ) 判断指定的HTTP头是否存在。 
+6 String encodeRedirectURL( String url ) 对sendRedirect()方法使用的URL进行编码。 
+7 String encodeURL( String url ) 将URL予以编码，回传包含session ID的URL。 
+8 void flushBuffer() 强制把当前缓冲区的内容发送到客户端。 
+9 int getBufferSize() 取得以kb为单位的缓冲区大小。 
+10 String getCharacterEncoding() 获取响应的字符编码格式。 
+11 String getContentType() 获取响应的类型。 
+12 Locale getLocale() 获取响应的Locale对象。 
+13 ServletOutputStream getOutputStream() 返回客户端的输出流对象。 
+14 PrintWriter getWriter() 获取输出流对应的writer对象。 
+15 boolean isCommitted() 判断服务器端是否已经将数据输出到客户端。 
+16 void reset() 清空buffer中的所有内容。 
+17 void resetBuffer() 情况buffer中所有的内容，但是保留HTTP头和状态信息。 
+18 void sendError( int xc, String msg ) 
+void sendError( int xc ) 发送错误，包括状态码和错误信息。 
+19 void sendRedirect( String locationg ) 把响应发送到另外一个位置进行处理。 
+20 void setBufferSize( int size ) 设置以kb为单位的缓冲区大小。 
+21 void setCharacterEncoding( String charset )设置响应使用的字符编码格式。 
+22 void setContentLength( int length ) 设置响应的BODY长度。 
+23 void setContentType( String type ) 设置响应的类型。 
+24 void setDateHeader( String name, long value ) 设置指定名称的Data类型的HTTP头的值。 
+25 void setHeader( String name, String value ) 设置指定名称的HTTP头的值。 
+26 void setIntHeader( String name, int value ) 设置指定名称的int类型的HTTP头的值。 
+27 void setStatus( int xc ) 设置响应状态码，新值会覆盖当前值。 
+成员(HTTP状态码)： 
+int SC_CONTINUE = 100 int SC_SWITCHING_PROTOCOLS = 101 
+int SC_OK = 200 int SC_NON_AUTHORITATIVE_INFORMATION = 203 
+int SC_ACCEPTED = 202 int SC_CREATED = 201 
+int SC_NO_CONTENT = 204 int SC_RESET_CONTENT = 205 
+int SC_PARTIAL_CONTENT = 206 int SC_MULTIPLE_CHOICES = 300 
+int SC_MOVED_PERMANENTLY = 301 int SC_MOVED_TEMPORARILY = 302 
+int SC_FOUND = 302 int SC_SEE_OTHER = 303 
+int SC_NOT_MODIFIED = 304 int SC_USE_PROXY = 305 
+int SC_TEMPORARY_REDIRECT = 307 int SC_BAD_REQUEST = 400 
+int SC_UNAUTHORIZED = 401 int SC_PAYMENT_REQUIRED = 402 
+int SC_FORBIDDEN = 403 int SC_NOT_FOUND = 404 
+int SC_METHOD_NOT_ALLOWED = 405 int SC_NOT_ACCEPTABLE 
+
+3.session对象 
+session表示一个请求的javax.servlet.http.HttpSession对象。指的是客户端与服务器的一次会话，从客户连到服务器的一个WebApplication开始，直到客户端与服务器断开连接为止。 
+1 long getCreationTime() 返回SESSION创建时间 
+2 public String getId() 返回SESSION创建时JSP引擎为它设的惟一ID号 
+3 long getLastAccessedTime() 返回此SESSION里客户端最近一次请求时间 
+4 int getMaxInactiveInterval() 返回两次请求间隔多长时间此SESSION被取消(ms) 
+5 String[] getValueNames() 返回一个包含此SESSION中所有可用属性的数组 
+6 void invalidate() 取消SESSION，使SESSION不可用 
+7 boolean isNew() 返回服务器创建的一个SESSION,客户端是否已经加入 
+8 void removeValue(String name) 删除SESSION中指定的属性 
+9 void setMaxInactiveInterval() 设置两次请求间隔多长时间此SESSION被取消(ms) 
+
+4.out对象 
+out 对象是javax.jsp.JspWriter的一个实例，并提供了几个方法使你能用于向浏览器回送输出结果。 
+1 void clear() 清除缓冲区的内容，但是不输出到客户端。 
+2 void clearBuffer() 清除缓冲区的当前内容，并输出到客户端。 
+3 void close()  关闭输出流，清除所有内容。 
+
+4 void flush() 输出缓冲区里面的数据。 
+5 int getBufferSize() 返回缓冲区以字节数的大小，如不设缓冲区则为0 
+6 int getRemaining() 返回缓冲区还剩余多少可用 
+7 boolean isAutoFlush() 返回缓冲区满时，是自动清空还是抛出异常 
+8. void newLine() 输出一个换行字符。 
+9. void print( boolean b ) 将指定类型的数据输出到Http流，不换行 
+10. void println( boolean b ) 将指定类型的数据输出到Http流，并输出一个换行符。 
+11. 
+Appendable append( char c ) 
+Appendable append( CharSequence cxq, int start, int end ) 
+Appendable append( CharSequence cxq ) 
+将一个字符或者实现了CharSequence接口的对象添加到输出流的后面。 
+成员： 
+int DEFAULT_BUFFER = 0 - 缺省缓冲区大小 
+int NO_BUFFER = -1 - writer是否处于缓冲输出状态 
+int UNBOUNDED_BUFFER = -2 - 是否限制缓冲区大小 
+
+
+5.page对象 
+page对象就是指向当前JSP页面本身，有点象类中的this指针，它是java.lang.Object类的实例 
+1 class getClass 返回此Object的类 
+2 int hashCode() 返回此Object的hash码 
+3 boolean equals(Object obj) 判断此Object是否与指定的Object对象相等 
+4 void copy(Object obj) 把此Object拷贝到指定的Object对象中 
+5 Object clone() 克隆此Object对象 
+6 String toString() 把此Object对象转换成String类的对象 
+7 void notify() 唤醒一个等待的线程 
+8 void notifyAll() 唤醒所有等待的线程 
+9 void wait(int timeout) 使一个线程处于等待直到timeout结束或被唤醒 
+10 void wait() 使一个线程处于等待直到被唤醒 
+11 void enterMonitor() 对Object加锁 
+12 void exitMonitor() 对Object开锁 
+
+
+6.application对象 
+applicaton 表示一个javax.servlet.ServletContext对象。他实现了用户间数据的共享，可存放全局变量。它 
+
+开始于服务器的启动，直到服务器的关闭，在此期间，此对象将一直存在；这样在用户的前后连接或不同用户之 
+
+间的连接中，可以对此对象的同一属性进行操作；在任何地方对此对象属性的操作，都将影响到其他用户对此的 
+
+访问。服务器的启动和关闭决定了application对象的生命。 
+
+1 Object getAttribute(String name) 返回给定名的属性值 
+2 Enumeration getAttributeNames() 返回所有可用属性名的枚举 
+3 void setAttribute(String name,Object obj) 设定属性的属性值 
+4 void removeAttribute(String name) 删除一属性及其属性值 
+5 String getServerInfo() 返回JSP(SERVLET)引擎名及版本号 
+6 String getRealPath(String path) 返回一虚拟路径的真实路径 
+7 ServletContext getContext(String uripath) 返回指定WebApplication的application对象 
+8 int getMajorVersion() 返回服务器支持的Servlet API的最大版本号 
+9 int getMinorVersion() 返回服务器支持的Servlet API的最大版本号 
+10 String getMimeType(String file) 返回指定文件的MIME类型 
+11 URL getResource(String path) 返回指定资源(文件及目录)的URL路径 
+12 InputStream getResourceAsStream(String path) 返回指定资源的输入流 
+13 RequestDispatcher getRequestDispatcher(String uripath) 返回指定资源的RequestDispatcher对象 
+14 Servlet getServlet(String name) 返回指定名的Servlet 
+15 Enumeration getServlets() 返回所有Servlet的枚举 
+16 Enumeration getServletNames() 返回所有Servlet名的枚举 
+17 void log(String msg) 把指定消息写入Servlet的日志文件 
+18 void log(Exception exception,String msg) 把指定异常的栈轨迹及错误消息写入Servlet的日志文件 
+19 void log(String msg,Throwable throwable) 把栈轨迹及给出的Throwable异常的说明信息 写入Servlet的 
+
+日志文件。 
+
+7.exception对象 
+exception对象是一个例外对象，当一个页面在运行过程中发生了例外，就产生这个对象。如果一个JSP页面要应 
+
+用此对象，就必须把isErrorPage设为true，否则无法编译。他实际上是java.lang.Throwable的对象。 
+
+8.pageContext对象 
+pageContext表示一个javax.servlet.jsp.PageContext对象。pageContext对象提供了对JSP页面内所有的对象及 
+
+名字空间的访问，也就是说他可以访问到本页所在的SESSION，也可以取本页面所在的application的某一属性值 
+
+。 
+
+1 JspWriter getOut() 返回当前客户端响应被使用的JspWriter流(out) 
+2 HttpSession getSession() 返回当前页中的HttpSession对象(session) 
+3 Object getPage() 返回当前页的Object对象(page) 
+4 ServletRequest getRequest() 返回当前页的ServletRequest对象(request) 
+5 ServletResponse getResponse() 返回当前页的ServletResponse对象(response) 
+6 Exception getException() 返回当前页的Exception对象(exception) 
+7 ServletConfig getServletConfig() 返回当前页的ServletConfig对象(config) 
+8 ServletContext getServletContext() 返回当前页的ServletContext对象(application) 
+9 void setAttribute(String name,Object attribute) 设置属性及属性值 
+10 void setAttribute(String name,Object obj,int scope) 在指定范围内设置属性及属性值 
+11 public Object getAttribute(String name) 取属性的值 
+12 Object getAttribute(String name,int scope) 在指定范围内取属性的值 
+13 public Object findAttribute(String name) 寻找一属性,返回起属性值或NULL 
+14 void removeAttribute(String name) 删除某属性 
+15 void removeAttribute(String name,int scope) 在指定范围删除某属性 
+16 int getAttributeScope(String name) 返回某属性的作用范围 
+17 Enumeration getAttributeNamesInScope(int scope) 返回指定范围内可用的属性名枚举 
+18 void release() 释放pageContext所占用的资源 
+19 void forward(String relativeUrlPath) 使当前页面重导到另一页面 
+20 void include(String relativeUrlPath) 在当前位置包含另一文件 
+
+
+9.config对象 
+config表示一个javax.servlet.ServletConfig对象。 
+config对象是在一个Servlet初始化时，JSP引擎向它传递信息用的，此信息包括Servlet初始化时所要用到的参 
+
+数（通过属性名和属性值构成）以及服务器的有关信息（通过传递一个ServletContext对象。） 
+
+1 ServletContext getServletContext() 返回含有服务器相关信息的ServletContext对象 
+2 String getInitParameter(String name) 返回初始化参数的值 
+3 Enumeration getInitParameterNames() 返回Servlet初始化所需所有参数的枚举
