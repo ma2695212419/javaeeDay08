@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id = "FrontEmpDao" class = "cn.kgc.tangcco.tcbd1016.lihaozhe.front.dao.impl.FrontEmpDaoImpl"/>
+	<bean id = "FrontDeptDao" class = "cn.kgc.tangcco.tcbd1016.lihaozhe.front.dao.impl.FrontDeptDaoImpl"/>
+	<bean id = "BackEmpDao" class = "cn.kgc.tangcco.tcbd1016.lihaozhe.back.dao.impl.BackEmpDaoImpl"/>
+</beans>

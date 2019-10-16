@@ -1,0 +1,260 @@
+Jsp
+	概述
+		jsp就是Servlet，jsp就是java类(jsp文件访问时被翻译成.java文件。而文件的父类是HttpServlet)
+	问：
+		为什么jsp网站第一次访问速速较慢，第二次明显加快？
+		因为jsp第一次访问过程中需要进行一次翻译（.java）+一次编译(.class)。然后才能执行。所以第一次执行速度较慢。第二次执行过程中不需要重复过程，除非页面被修改过。
+
+	页面指令
+		<%@ page%>
+		这是jsp的page指令，主要的作用是用来设置一个JSP页面的属性。
+		<%@ include%>
+
+	页面引入
+		<%@ include%>
+			静态引入。
+			特点：
+				1、引入的文件将作为当前文件的一部分（翻译成当前文件的一部分）
+				2、目标文件和源文件被翻译成一个文件
+
+			缺点
+				文件中尽量不能使用java变量（变量重复定义）
+				较多的冗余代码
+
+			使用
+				引入静态文件
+
+		<jsp:include>
+			动态引入
+			特点：
+				1、引入的文件将被翻译成独立文件。
+				2、目标文件中只是使用引入语句进行文件的使用			
+			优点
+				可以重复使用包含java变量的页面文件
+				减少了代码的冗余
+			使用
+				引入包含java代码及变量的文件
+
+	问：
+		静态引入与动态引入有哪些区别（什么不同）？
+		静态引入将目标文件和原文翻译成一个文件；动态引入将目标文件和源文件进行翻译成独立的文件
+		静态引入不能对包含java变量的文件进行重复引用；动态引入可以对包含java变量的文件进行重复引用
+
+
+		什么静态引入？什么是动态引入？
+		静态引入使用<%@ include%>指令；动态引入使用<jsp:include>指令
+		静态引入将目标文件和原文翻译成一个文件；动态引入将目标文件和源文件进行翻译成独立的文件
+		静态引入不能对包含java变量的文件进行重复引用；动态引入可以对包含java变量的文件进行重复引用
+
+	注释
+		客户端注释
+			js
+				//	：单行注释
+				/**/	：多行注释
+			Html
+				<!-- 注释内容 -->	
+			java
+				//	：单行注释
+				/**/	：多行注释
+			jsp注释
+				<%-- --%>
+
+	<%! %>指令
+		声明指令
+
+		用于声明全局变量(所以基本不使用)。
+
+	<% %>指令
+		代码段指令
+
+		用于定义java代码段
+
+	<%= %>指令
+		表达式指令
+
+		用于使用代码段中的变量或表达式
+
+	问
+		java代码段通过什么注释可以注释掉？
+		jsp注释
+
+
+
+九大对象
+	二(2个输出)
+		out、response
+	三(3路过的)
+		config、page、exception
+	四(4大作用域)
+		applicaiton、session、request、pageContext
+		
+	顺序：
+	问：
+		请写出Jsp的九大内置对象
+
+
+	Application
+		整个应用程序内都有效（整个网站中任何位置都可以访问——所有访问都有效）。
+		生命周期：创建到服务器关闭/重启
+		作用：计数（在线人数统计）
+	Session
+		整个会话内都有效（从浏览器打开到关闭——每一个访问）
+		生命周期：访问开始到页面关闭（session过期）
+		作用：记录当前用户信息
+	request
+		一次请求内有效（请求范围内有效——申请）
+		声明周期：一次请求
+		作用：servlet到jsp一次请求值得传递
+
+	生命周期的方法
+		setAttribute()、getAttribute()、removeAttribute()
+
+
+
+
+
+代码复用常用方式
+	继承 + 组合
+
+
+
+
+
+EL表达式
+	作用
+		取代jsp中的java代码。读取作用域对象及请求参数的值。（主要用于替代jsp的表达式——<%= %>）
+	语法
+		${作用域对象名}
+	对象读取
+		1、读取同名作用域对象时最小作用域优先
+		2、跨作用域读取（applicationScope、sessionScope、requestScope、pageScope）。作用域.对象名
+	请求参数读取
+		param.参数名			：读取请求参数的一个值
+		paramValues.参数名[索引]		：读取同名请求参数的一组值
+
+	运算符
+		1、支持算数运算符（没有连接运算符）
+		2、支持关系及逻辑运算符
+		3、empty运算符
+
+	应用
+		jsp页面中输出作用域及获取请求参数的值
+
+JSTL
+	作用
+		取代jsp中的java代码。提供相应的功能，如：循环、判断等。一般与el表达式连用
+	语法
+		<c:out>
+			作用
+				扩展输出方式（在EL表达式基础上进行完善，相当于getAttribute()）。
+			属性
+				value		：输出的内容（可以使用EL表达式）
+				default		：EL表达式中对象不存在时输出的默认值
+				escapeXml	：是否忽略内容中的标签（true——标签作为一般文本进行输出；）
+		<c:set>
+			作用
+				用于设置或创建作用域对象的值（相当于setAttribute（））
+			属性
+				scope		：设置对象的作用域（application、session、request、page）
+				var		：设置对象的名称
+				value		：设置对象的值
+
+			注意
+				设置通过对象时，只对最小作用域的对象生效
+		<c:remove>
+			作用
+				用于移除作用域中的对象（相当于removeAttribute()）	
+			属性
+				scope		：设置对象的作用域(application、session、request、page)
+				var		：设置对象的名称
+
+			注意
+				默认情况下，将移除所有同名的对象
+
+		<c:if>
+			作用
+				实现java代码的if分支语句功能
+			属性
+				test		：设置分支语句的执行条件
+				var		：设置条件结果存储在作用域中的名称（jstl没有else语句段，所以可以通过var的结果进行模拟）
+
+		<c:choose>
+			语法
+				<c:choose>
+					<c:when test="表达式"></c:when>
+					<c:when test="表达式"></c:when>
+					... ...
+					<c:otherwise></c:otherwise>
+				</c:choose>
+			作用
+				实现java代码的switch多分支语句
+			属性
+				test		：设置分支语句的执行条件
+
+		<c:foreach>
+			作用
+				实现java代码中的for循环功能
+			属性
+				items		：设置作用对象
+				var		：读取到对象的值存储在作用域中的名称
+
+
+
+
+
+
+数据存储乱码
+	servlet中
+		request对象.setCharacterEncoding（编码格式）；
+	数据库连接字符串
+		?useUnicode=true&characterEncoding=utf-8
+
+
+解决乱码(必须记住)
+	request对象.setCharacterEncoding();
+	response对象.setCharacterEncoding();Header("content-type","text/html;charset=Xxxx");
+	
+		
+
+
+
+自定义JSTL函数
+	1、创建.tld文件（tag libaraay description）
+		WebRoot——>Web-inf——>lib（ctrl + n）
+
+	2、添加方法描述
+		a、复制标准函数库（fn.tld）内容并粘贴到自定义的函数描述文件中
+		b、修改short-name和uri(自定义的)
+		c、找一个简单的方法描述并去掉其他的方法描述
+	3、描述函数
+		<name>			：指定函数名
+		<function-class>	：函数所在的类（包+类名）
+		<function-signature>	：方法的签名（返回值类型 方法名（参数列表）。注意：列表中只写类型）
+	4、实现函数
+		函数在类中需要定义为静态公共函数
+	5、调用函数
+
+自定义JSTL标签
+	1、创建.tld文件(路径同函数)
+
+	2、条件标签描述
+		a、复制标准函数库（c.tld）内容并粘贴到自定义的函数描述文件中
+		b、修改short-name和uri(自定义的)
+		c、找一个简单标签并去掉其他标签的描述
+	3、描述标签
+		<name>			：标签名称
+		<tag-class>		：标签类（包+类名）
+		<body-content>		：内容类型
+		<attribute>		：类中的属性（成员字段）
+
+	4、实现类
+		类需要继承自TagSupport
+	5、定义类的属性（定义成员字段——将作为标签属性进行使用）
+	6、描述标签（使用3中的属性描述）
+	7、使用标签
+
+	应用：粗粒度的权限控制
+
+
+
+String say(String, int)		

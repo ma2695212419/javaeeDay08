@@ -16,13 +16,18 @@
 			var fun01 = ()=> {
 				a = 20;
 				var b = 30;
+				var c = 40;
 			}
 			var fun02 = ()=>{
-				fun01()
 				window.console.log(a)
 				window.console.log(b)
+				fun01()
+				
+				window.console.log(a)
+				window.console.log(b)
+				// window.console.log(c)
 			}
-			
+			window.console.log(c)
 		</script>
 		
 	</body>
